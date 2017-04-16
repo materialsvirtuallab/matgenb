@@ -23,21 +23,26 @@ def update_html(ctx):
     year = str(datetime.datetime.now().year)
     with cd(year):
         ctx.run("jupyter nbconvert --to html *.ipynb")
-    
-    toc = defaultdict(list)
-    for f in glob.glob("*/*.html"):
-        year, html = f.split("/")
-        toc[year].append('<a href="%s">%s</a>' % (f, html))
-    
-    output = []
-    for k in sorted(toc.keys(), reverse=True):
-        output.append('<h1>%s</h1>' % k)
-        output.append('<ul>')
-        docs = toc[k]
-        docs.reverse()
-        for d in toc[k]:
-            output.append('<li>%s</li>' % d)
-        output.append('</ul>')
+        ctx.run("mv *.html ../docs/%s" % year)
 
-    with open("toc.html", "wt") as f:
-        f.write("\n".join(output))
+    with cd("docs"):
+        toc = defaultdict(list)
+        for f in glob.glob("*/*.html"):
+            year, title = f.split("/")
+            toc[year].append((title, f))
+        
+        output = []
+        for k in sorted(toc.keys(), reverse=True):
+            output.append('## %s' % k)
+            docs = toc[k]
+            docs.reverse()
+            for d in toc[k]:
+                output.append('* [%s] (%s)' % d)
+            output.append('')
+
+        with open("README.template") as f:
+            contents = f.read()
+            output = contents.format(TOC="\n".join(output))
+
+        with open("README.md", "wt") as f:
+            f.write(output)
