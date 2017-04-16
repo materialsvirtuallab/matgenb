@@ -37,7 +37,7 @@ def update_html(ctx):
             docs = toc[k]
             docs.reverse()
             for d in toc[k]:
-                output.append('* [%s] (%s)' % d)
+                output.append('* [%s](%s)' % d)
             output.append('')
 
         with open("README.template") as f:

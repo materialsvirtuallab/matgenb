@@ -21,12 +21,12 @@ Contributors are not limited to myself - anyone is welcome to contribute. Just f
 # Table of contents
 
 ## 2017
-* [20170414 - Inputs and Analysis of VASP runs.html] (2017/20170414 - Inputs and Analysis of VASP runs.html)
-* [20170403 - Slab generation and Wulff shape.html] (2017/20170403 - Slab generation and Wulff shape.html)
-* [20170302 - Getting data from Materials Project.html] (2017/20170302 - Getting data from Materials Project.html)
+* [20170414 - Inputs and Analysis of VASP runs.html](2017/20170414 - Inputs and Analysis of VASP runs.html)
+* [20170403 - Slab generation and Wulff shape.html](2017/20170403 - Slab generation and Wulff shape.html)
+* [20170302 - Getting data from Materials Project.html](2017/20170302 - Getting data from Materials Project.html)
 
 ## 2016
-* [20160908 - Data-driven First Principles Methods for the Study and Design of Alkali Superionic Conductors Part 3 - Diffusivity and Ionic Conductivity.html] (2016/20160908 - Data-driven First Principles Methods for the Study and Design of Alkali Superionic Conductors Part 3 - Diffusivity and Ionic Conductivity.html)
-* [20160908 - Data-driven First Principles Methods for the Study and Design of Alkali Superionic Conductors Part 2 - Phase and Electrochemical Stability.html] (2016/20160908 - Data-driven First Principles Methods for the Study and Design of Alkali Superionic Conductors Part 2 - Phase and Electrochemical Stability.html)
-* [20160908 - Data-driven First Principles Methods for the Study and Design of Alkali Superionic Conductors Part 1 - Structure Generation.html] (2016/20160908 - Data-driven First Principles Methods for the Study and Design of Alkali Superionic Conductors Part 1 - Structure Generation.html)
+* [20160908 - Data-driven First Principles Methods for the Study and Design of Alkali Superionic Conductors Part 3 - Diffusivity and Ionic Conductivity.html](2016/20160908 - Data-driven First Principles Methods for the Study and Design of Alkali Superionic Conductors Part 3 - Diffusivity and Ionic Conductivity.html)
+* [20160908 - Data-driven First Principles Methods for the Study and Design of Alkali Superionic Conductors Part 2 - Phase and Electrochemical Stability.html](2016/20160908 - Data-driven First Principles Methods for the Study and Design of Alkali Superionic Conductors Part 2 - Phase and Electrochemical Stability.html)
+* [20160908 - Data-driven First Principles Methods for the Study and Design of Alkali Superionic Conductors Part 1 - Structure Generation.html](2016/20160908 - Data-driven First Principles Methods for the Study and Design of Alkali Superionic Conductors Part 1 - Structure Generation.html)
 
