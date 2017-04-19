@@ -1,14 +1,10 @@
 # Introduction
 
-This repository contains notebooks that demonstrate the utilization of open-source codes for the study of materials science. 
+This repository contains Jupyter notebooks that demonstrate the utilization of open-source codes for the study of materials science. 
 
-Over the course of my work, I frequently get requests (from students, postdocs, collaborators, or just general users) for example codes that demonstrate various capabilities in the open-source software I maintain and contribute to, such as the Materials Project software stack comprising Python Materials Genomics (pymatgen) (http://www.pymatgen.org), Custodian, and Fireworks. I have began to realize that writing customized code snippets is not an efficient use of my time. 
+Over the course of my work, we frequently get requests (from students, postdocs, collaborators, or just general users) for example codes that demonstrate various capabilities in the open-source software we maintain and contribute to, such as the Materials Project software stack comprising [Python Materials Genomics (pymatgen)](http://www.pymatgen.org), Custodian, and Fireworks. This repo is a start at building a more sustainable path towards sharing of code examples. 
 
-This repo is a start at building a more sustainable path towards sharing of code examples. 
-
-It is not limited to the codes I develop - any use of open source software for materials analysis is welcome.
-
-Contributors are not limited to myself - anyone is welcome to contribute. Just fork, write and submit pull request.
+It is not limited to the codes we develop - any use of open source software for materials analysis is welcome. Also, anyone is welcome to contribute. Just fork, write your awesome notebook and submit a pull request.
 
 # A few ground rules
 
