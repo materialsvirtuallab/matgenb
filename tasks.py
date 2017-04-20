@@ -34,6 +34,7 @@ def update_html(ctx):
         output = []
         for k in sorted(toc.keys(), reverse=True):
             output.append('## %s' % k)
+            output.append('')
             docs = toc[k]
             docs.reverse()
             for d in toc[k]:
