@@ -22,6 +22,7 @@ The following is a complete listing of available notebooks, with the latest note
 
 ## 2017
 
+* [20170511 - Running Jupyter Notebook on clusters.html](2017/20170511 - Running Jupyter Notebook on clusters.html)
 * [20170414 - Inputs and Analysis of VASP runs.html](2017/20170414 - Inputs and Analysis of VASP runs.html)
 * [20170403 - Slab generation and Wulff shape.html](2017/20170403 - Slab generation and Wulff shape.html)
 * [20170302 - Getting data from Materials Project.html](2017/20170302 - Getting data from Materials Project.html)
