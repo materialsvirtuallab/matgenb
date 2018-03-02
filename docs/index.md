@@ -13,10 +13,11 @@ It is not limited to the codes we develop - any use of open source software for 
 
 Just fork, write your awesome notebook and submit a pull request.
 
-# A few ground rules
+# How to contribute
 
-1. Notebooks should be well-documented and simple. The idea here is to be pedagogical. A newcomer to the software (with the right materials science background) should be able to follow the logic without too much difficulty.
-
-2. Notebooks should be placed in the appropriate year folder, and the name should start with the date of the notebook in `YYYY-MM-DD-<intuitive title>`format. See [existing examples](https://github.com/materialsvirtuallab/matgenb/tree/master/notebooks).
-
-3. Feel free to add authorship and contact information, as well as works to cite and acknowledge your contributions.
+1. Fork this repo and clone.
+2. Write a new notebook in the `notebooks` folder.
+3. Notebooks should be well-documented and simple. The idea here is to be pedagogical. A newcomer to the software (with the right materials science background) should be able to follow the logic without too much difficulty. Feel free to add authorship and contact information, as well as works to cite and acknowledge your contributions.
+4. Notebooks should be placed in the `notebooks` folder, and the name should start with the date in `YYYY-MM-DD-<intuitive title>`format. See [existing examples](https://github.com/materialsvirtuallab/matgenb/tree/master/notebooks).
+5. In the root folder of the repo, type `jupyter nbconvert --to html notebooks/*.ipynb --output-dir docs/_posts`
+5. Commit, push and submit a pull request.
