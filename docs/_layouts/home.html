@@ -16,7 +16,7 @@ layout: default
       <tr>
         <td>
         {% assign date_format = site.minima.date_format | default: "%b %-d, %Y" %}
-        {{ post.date | date: date_format }</td><td> <a class="post-link" href="{{ post.url | relative_url }}">
+        {{ post.date | date: date_format }}</td><td> <a class="post-link" href="{{ post.url | relative_url }}">
             {{ post.title | escape }}
           </a>
         </td>
