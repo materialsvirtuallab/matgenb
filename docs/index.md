@@ -13,7 +13,7 @@ It is not limited to the codes we develop - any use of open source software for 
 
 Just fork, write your awesome notebook and submit a pull request.
 
-# How to contribute
+# Contributing
 
 1. Fork this repo and clone.
 2. Write a new notebook in the `notebooks` folder.
