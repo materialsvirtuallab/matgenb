@@ -22,8 +22,6 @@ Just fork, write your awesome notebook and submit a pull request.
 5. In the root folder of the repo, type `jupyter nbconvert --to html notebooks/*.ipynb --output-dir docs/_posts`
 5. Commit, push and submit a pull request.
 
-# Search
-
 <form action="/search.html" method="get">
   <label for="search-box">Search</label>
   <input type="text" id="search-box" name="query">
