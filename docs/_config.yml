@@ -16,8 +16,7 @@
 title: matgenb
 # email: your-email@example.com
 description: >- # this means to ignore newlines until "baseurl:"
-  Repository containing Jupyter notebooks that demonstrate the utilization of 
-  open-source codes for the study of materials science.
+  Materials Science Jupyter Notebooks
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 # twitter_username: jekyllrb
