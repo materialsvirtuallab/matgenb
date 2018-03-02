@@ -44,7 +44,7 @@
       this.field('category');
       this.field('content');
       for (var key in window.store) { // Add the data to lunr
-        idx.add({
+        this.add({
           'id': key,
           'title': window.store[key].title,
           'author': window.store[key].author,
