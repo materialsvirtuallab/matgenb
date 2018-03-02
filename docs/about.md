@@ -1,3 +1,9 @@
+---
+layout: page
+title: About
+permalink: /about/
+---
+
 # Introduction
 
 This [Materials Virtual Lab](http://www.materialsvirtuallab.org) repository contains Jupyter notebooks that demonstrate the utilization of open-source codes for the study of materials science. 

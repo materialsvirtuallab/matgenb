@@ -13,3 +13,6 @@ build
 .idea
 .ipynb_checkpoints
 Icon?
+_site
+.sass-cache
+.jekyll-metadata
