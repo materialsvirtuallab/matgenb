@@ -2,7 +2,7 @@
 layout: home
 ---
 
-# Welcome
+## Welcome
 
 This website is started by the [Materials Virtual Lab](http://www.materialsvirtuallab.org) as a useful collection of Jupyter notebooks that demonstrate the utilization of open-source codes for the study of materials science.
 
@@ -12,7 +12,7 @@ It is not limited to the codes we develop - any use of open source software for 
 
 Just fork, write your awesome notebook and submit a pull request.
 
-# Contributing
+## Contributing
 
 1. Fork this repo and clone.
 ```bash

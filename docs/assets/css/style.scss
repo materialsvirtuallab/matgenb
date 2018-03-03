@@ -4,10 +4,11 @@
 @import "{{ site.theme }}";
 
 input {
-    
+    font-size: 1.8em;
 }
 
 #search-div{
-    font-size: 1.8em;
+    width: 50%;
+    text-align: center;
     margin: auto;
 }
