@@ -41,6 +41,6 @@ git push
 <div id="search-div">
     <form action="/search.html" method="get">
       <input type="text" id="search-box" name="query">
-      <input type="submit" value="Search notebooks">
+      <input type="submit" class="button" value="Search notebooks">
     </form>
 </div>

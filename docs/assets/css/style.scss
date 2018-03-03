@@ -4,12 +4,22 @@
 @import "{{ site.theme }}";
 
 input {
-    
+    font-size: 1.8em;
+}
+
+.button {
+    background-color: #AF0011; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1.8em;
 }
 
 #search-div {
     width: 50%;
     text-align: center;
     margin: auto;
-    font-size: 1.8em;
 }
