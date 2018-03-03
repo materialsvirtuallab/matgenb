@@ -4,16 +4,18 @@
 @import "{{ site.theme }}";
 
 input {
+    height: 30px;
     font-size: 1.8em;
 }
 
 .button {
     background-color: #AF0011;
-    border: none;
+    border: 1px grey;
     color: white;
+    padding: 2px 2px;
     text-align: center;
+    text-shadow: rgba(0,0,0,0.4) 0 -1px 0;
     text-decoration: none;
-    display: inline-block;
 }
 
 #search-div {
