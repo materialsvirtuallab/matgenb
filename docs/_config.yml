@@ -24,7 +24,7 @@ github_username:  materialsvirtuallab
 
 # Build settings
 markdown: kramdown
-theme: jekyll-theme-tactile
+theme: jekyll-theme-dinky
 plugins:
   - jekyll-feed
 
