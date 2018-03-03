@@ -4,13 +4,11 @@ layout: home
 
 # Welcome
 
-This website is started by the [Materials Virtual Lab](http://www.materialsvirtuallab.org) as a useful collection of Jupyter notebooks that demonstrate the utilization of open-source codes for the study of materials science.
+This Github Pages is started by the [Materials Virtual Lab](http://www.materialsvirtuallab.org) as a useful collection of Jupyter notebooks that demonstrate the utilization of open-source codes for the study of materials science.
 
 We frequently get requests (from students, postdocs, collaborators, or just general users) for example codes that demonstrate various capabilities in the open-source software we maintain and contribute to, such as the Materials Project software stack comprising [Python Materials Genomics (pymatgen)](http://www.pymatgen.org), [Custodian](https://materialsproject.github.io/custodian/), and [Fireworks](https://pythonhosted.org/FireWorks/). This repo is a start at building a more sustainable path towards sharing of code examples. 
 
 It is not limited to the codes we develop - any use of open source software for materials analysis is welcome. Also, anyone is welcome to contribute. 
-
-Just fork, write your awesome notebook and submit a pull request.
 
 # Contributing
 
