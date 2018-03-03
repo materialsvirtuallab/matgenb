@@ -1,6 +1,8 @@
 ---
 layout: search
 ---
+
+# Search
 <div id="search-div">
     <form action="/search.html" method="get">
       <input type="text" id="search-box" name="query">
