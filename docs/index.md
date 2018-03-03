@@ -15,33 +15,32 @@ Just fork, write your awesome notebook and submit a pull request.
 # Contributing
 
 1. Fork this repo and clone.
-```
+```bash
 git clone git@github.com:materialsvirtuallab/matgenb.git
 cd matgenb
 ```
 2. Write a new notebook in the `notebooks` folder.
-```
+```bash
 cd notebooks
 jupyter notebook
 ```
 3. Notebooks should be well-documented and simple. The idea here is to be pedagogical. A newcomer to the software (with the right materials science background) should be able to follow the logic without too much difficulty. Feel free to add authorship and contact information, as well as works to cite and acknowledge your contributions.
 4. Notebooks should be placed in the `notebooks` folder, and the name should start with the date in `YYYY-MM-DD-<intuitive title>` format. See [existing examples](https://github.com/materialsvirtuallab/matgenb/tree/master/notebooks).
-5. In the root folder of the repo, type
-```
+5. In the root folder of the repo, convert the jupyter notebooks to html.
+```bash
 jupyter nbconvert --to html notebooks/*.ipynb --output-dir docs/_posts
 ```
-.
 6. Commit and push.
-```
+```bash
 git add .
 git commit -a -m "Describe your contribution"
 git push
 ```
 7. Submit a pull request from Github.
 
-# Search notebooks
-
-<form action="/search.html" method="get">
-  <input type="text" id="search-box" name="query">
-  <input type="submit" value="search">
-</form>
+<div id="search">
+    <form action="/search.html" method="get">
+      <input type="text" id="search-box" name="query">
+      <input type="submit" value="Search notebooks">
+    </form>
+</div>
