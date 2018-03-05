@@ -1,8 +1,8 @@
+Visit the [Github Pages](http://matgenb.materialsvirtuallab.org) for a nicely formatted HTML page and notebook search functionality.
+
 # Introduction
 
-The webpage of this repo is at http://matgenb.materialsvirtuallab.org. Go there if you prefer a nicely formatted HTML page and notebook search functionality. This README is provided for developers who wish to contribute to the documentation.
-
-This Github Pages is started by the [Materials Virtual Lab](http://www.materialsvirtuallab.org) as a useful collection of Jupyter notebooks that demonstrate the utilization of open-source codes for the study of materials science.
+This repo is started by the [Materials Virtual Lab](http://www.materialsvirtuallab.org) as a useful collection of Jupyter notebooks that demonstrate the utilization of open-source codes for the study of materials science.
 
 We frequently get requests (from students, postdocs, collaborators, or just general users) for example codes that demonstrate various capabilities in the open-source software we maintain and contribute to, such as the Materials Project software stack comprising [Python Materials Genomics (pymatgen)](http://www.pymatgen.org), [Custodian](https://materialsproject.github.io/custodian/), and [Fireworks](https://pythonhosted.org/FireWorks/). This repo is a start at building a more sustainable path towards sharing of code examples. 
 
@@ -34,9 +34,3 @@ git push
 ```
 7. Submit a pull request from Github.
 
-<div id="search-div">
-    <form action="/search.html" method="get">
-      <input type="text" id="search-box" name="query">
-      <input type="submit" class="button" value="Search notebooks">
-    </form>
-</div>
