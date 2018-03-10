@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
-<title>2018-03-09-Reaction Phase Diagram</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>2018-03-09-Reaction Diagram Construction</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 <style type="text/css">
@@ -11775,9 +11775,11 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>This notebook shows how to</p>
+<h1 id="Introduction">Introduction<a class="anchor-link" href="#Introduction">&#182;</a></h1><p>This notebook demonstrates how to generate reaction diagrams between two compounds, e.g., between VOPO4 and ethylene carbonate (EC with formula C3H4O3) as published in Huang, Y.; Lin, Y.-C.; Jenkins, D. M.; Chernova, N. A.; Chung, Y.; Radhakrishnan, B.; Chu, I.-H.; Fang, J.; Wang, Q.; Omenya, F.; et al. Thermal Stability and Reactivity of Cathode Materials for Li-Ion Batteries. ACS Appl. Mater. Interfaces 2016, 8 (11), 7013–7021 DOI: <a href="http://dx.doi.org/10.1021/acsami.5b12081">10.1021/acsami.5b12081</a>.</p>
+<p>Concepts/functionality demonstrated</p>
 <ul>
-<li>Obtain information about interface reactions between cathode and electrolyte. (VOPO4 with C3H4O3 (or EC) in this example)</li>
+<li>Obtain information about interface reactions between cathode and electrolyte.</li>
+<li>Combining experimental formation energies with DFT calculated energies.</li>
 <li>Plot formation energy as a function of mixing ratio.</li>
 </ul>
 <p>We use the <a href="https://github.com/materialsproject/mapidoc">Materials Project API</a> to obtain energies of compounds.</p>
@@ -11796,6 +11798,9 @@ div#notebook {
 <span class="kn">from</span> <span class="nn">pymatgen.apps.borg.hive</span> <span class="k">import</span> <span class="n">VaspToComputedEntryDrone</span>
 <span class="kn">from</span> <span class="nn">pymatgen.entries.compatibility</span> <span class="k">import</span> <span class="n">MaterialsProjectCompatibility</span>
 <span class="kn">from</span> <span class="nn">pymacy.bim.thermo</span> <span class="k">import</span> <span class="n">ReactionAnalysis</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
 <span class="o">%</span><span class="k">matplotlib</span> inline
 </pre></div>
 
@@ -12918,13 +12923,7 @@ pkRERESkCSxMiYiIiEgTWJgSERERkSb8D41syNOzBTMQAAAAAElFTkSuQmCC
 <div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">scipy</span> <span class="k">import</span> <span class="n">stats</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-
-<span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
-
-<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;axes.linewidth&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">3</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;axes.linewidth&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">3</span>
 <span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;lines.markeredgewidth&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">2</span>
 <span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;lines.linewidth&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">3</span>
 <span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;lines.markersize&#39;</span><span class="p">]</span><span class="o">=</span><span class="mi">13</span>
@@ -13638,19 +13637,6 @@ X7cj0BUCMCZzAABjMgcAMCZzAABjMgcAMCZzAABjMgcAMCZzAABjMgcAMCZzAABjMgcAMBZw4lPN
 
 </div>
 
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-</div>
 </div>
 </div>
 
