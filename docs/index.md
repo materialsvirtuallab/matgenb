@@ -22,7 +22,13 @@ cd matgenb
 cd notebooks
 jupyter notebook
 ```
-3. Notebooks should be well-documented and simple. The idea here is to be pedagogical. A newcomer to the software (with the right materials science background) should be able to follow the logic without too much difficulty. Feel free to add authorship and contact information, as well as works to cite and acknowledge your contributions.
+3. Notebooks should be well-documented and simple. The idea here is to be pedagogical. A newcomer to the software (with the right materials science background) should be able to follow the logic without too much difficulty. Feel free to add authorship and contact information, as well as works to cite and acknowledge your contributions. In view that scientific codes tend to be continuously being updated, please put in a list of the key pinned dependencies so that other users can install the exact version of software to run the notebook if needed. Ideally, please update notebooks as needed to use more modern versions of the codes, and you may update the date of the notebook as needed. An example preamble can be:
+```
+This notebook demonstrates the core functionality in pymatgen for manipulating structures.
+
+Written with:
+- pymatgen==2018.1.1
+```
 4. Notebooks should be placed in the `notebooks` folder, and the name should start with the date in `YYYY-MM-DD-<intuitive title>` format. See [existing examples](https://github.com/materialsvirtuallab/matgenb/tree/master/notebooks).
 5. In the root folder of the repo, convert the jupyter notebooks to html.
 ```bash
