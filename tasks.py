@@ -18,32 +18,6 @@ __date__ = "Sep 1, 2014"
 
 
 @task
-def update_html(ctx):
-
-    year = str(datetime.datetime.now().year)
-    with cd("notebooks"):
-        ctx.run("jupyter nbconvert --to html *.ipynb")
-        ctx.run("mv *.html ../docs/_posts")
-
-    # with cd("docs"):
-    #     toc = defaultdict(list)
-    #     for f in glob.glob("*/*.html"):
-    #         year, title = f.split("/")
-    #         toc[year].append((title, f))
-        
-    #     output = []
-    #     for k in sorted(toc.keys(), reverse=True):
-    #         output.append('## %s' % k)
-    #         output.append('')
-    #         docs = toc[k]
-    #         docs.reverse()
-    #         for d in toc[k]:
-    #             output.append('* [%s](%s)' % d)
-    #         output.append('')
-
-    #     with open("README.template") as f:
-    #         contents = f.read()
-    #         output = contents.format(TOC="\n".join(output))
-
-    #     with open("README.md", "wt") as f:
-    #         f.write(output)
+def update_html(ctx, year=str(datetime.datetime.now().year)):
+    ctx.run("rm docs/_posts/%s-*.html" % year)
+    ctx.run("jupyter nbconvert --to html notebooks/%s-*.ipynb --output-dir docs/_posts" % year)
