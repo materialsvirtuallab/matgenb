@@ -16,11 +16,11 @@ layout: search
   window.store = {
     {% for post in site.posts %}
       "{{ post.url | slugify }}": {
-        "title": "{{ post.title | xml_escape }}",
-        "author": "{{ post.author | xml_escape }}",
-        "category": "{{ post.category | xml_escape }}",
-        "content": {{ post.content | strip_html | strip_newlines | jsonify }},
-        "url": "{{ post.url | xml_escape }}"
+        "title": "{{ post.title | xml_escape | lower }}",
+        "author": "{{ post.author | xml_escape | lower }}",
+        "category": "{{ post.category | xml_escape | lower }}",
+        "content": {{ post.content | strip_html | strip_newlines | lower | jsonify }},
+        "url": "{{ post.url | xml_escape | lower }}"
       }
       {% unless forloop.last %},{% endunless %}
     {% endfor %}
