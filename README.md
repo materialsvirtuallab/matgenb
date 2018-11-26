@@ -1,3 +1,7 @@
+Try out notebooks online without installation using Binderhub.
+
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/materialsvirtuallab/matgenb/master)
+
 Visit the [Github Pages](http://matgenb.materialsvirtuallab.org) for a nicely formatted HTML page and notebook search functionality.
 
 # Introduction
