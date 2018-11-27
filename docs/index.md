@@ -10,6 +10,12 @@ We frequently get requests (from students, postdocs, collaborators, or just gene
 
 It is not limited to the codes we develop - any use of open source software for materials analysis is welcome. Also, anyone is welcome to contribute. 
 
+# BinderHub
+
+One of the best ways to get a feel of the functionality is to run it yourself using BinderHub. Click on the icon below to start a BinderHub instance where you can explore the notebooks, make any changes to the code to see the changes in output.
+
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/materialsvirtuallab/matgenb/master)
+
 # Contributing
 
 1. Fork this repo and clone.

@@ -1,7 +1,3 @@
-Try out notebooks online without installation using Binderhub.
-
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/materialsvirtuallab/matgenb/master)
-
 Visit the [Github Pages](http://matgenb.materialsvirtuallab.org) for a nicely formatted HTML page and notebook search functionality.
 
 # Introduction
@@ -11,6 +7,12 @@ This repo is started by the [Materials Virtual Lab](http://www.materialsvirtuall
 We frequently get requests (from students, postdocs, collaborators, or just general users) for example codes that demonstrate various capabilities in the open-source software we maintain and contribute to, such as the Materials Project software stack comprising [Python Materials Genomics (pymatgen)](http://www.pymatgen.org), [Custodian](https://materialsproject.github.io/custodian/), and [Fireworks](https://pythonhosted.org/FireWorks/). This repo is a start at building a more sustainable path towards sharing of code examples. 
 
 It is not limited to the codes we develop - any use of open source software for materials analysis is welcome. Also, anyone is welcome to contribute. 
+
+# BinderHub
+
+One of the best ways to get a feel of the functionality is to run it yourself using BinderHub. Click on the icon below to start a BinderHub instance where you can explore the notebooks, make any changes to the code to see the changes in output.
+
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/materialsvirtuallab/matgenb/master)
 
 # Contributing
 
