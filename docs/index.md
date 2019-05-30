@@ -20,7 +20,7 @@ One of the best ways to get a feel of the functionality is to run it yourself us
 
 1. Fork this repo and clone.
 ```bash
-git clone git@github.com:m<your_github_username>/matgenb.git
+git clone git@github.com:<your_github_username>/matgenb.git
 cd matgenb
 ```
 2. Write a new notebook in the `notebooks` folder.
