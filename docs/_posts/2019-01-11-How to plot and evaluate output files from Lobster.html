@@ -13089,7 +13089,7 @@ div#notebook {
 
 <!-- Loading mathjax macro -->
 <!-- Load mathjax -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS_HTML"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML"></script>
     <!-- MathJax configuration -->
     <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
@@ -13120,7 +13120,7 @@ div#notebook {
 <p>This notebook shows how to plot Crystal Orbital Hamilton Population (COHP) and projected densities of states calculated with the Local-Orbital Basis Suite Towards Electronic-Structure Reconstruction (LOBSTER) code. Furtheremore, the classes Icohplist and Charge to evaluate ICOHPLIST.lobster and CHARGE.lobster are explained. See <a href="http://www.cohp.de">http://www.cohp.de</a> for more information. The code to plot COHP and evaluate ICOHPLIST.lobster in pymatgen was started Marco Esters and Anubhav Jain and extended by Janine George. The classes to plot DOSCAR.lobster, and to evaluate CHARGE.lobster were written by Janine George.</p>
 <p>Written using:</p>
 <ul>
-<li>pymatgen==2019.2.24</li>
+<li>pymatgen==2019.8.14</li>
 </ul>
 
 </div>
@@ -13187,10 +13187,8 @@ div#notebook {
 
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>/home/jgeorge/anaconda3/lib/python3.7/site-packages/pymatgen/electronic_structure/cohp.py:573: UserWarning: The bond labels are currently consistent with ICOHPLIST.lobster/ICOOPLIST.lobster, not with COHPCAR.lobster/COOPCAR.lobster. Please be aware!
+<pre>/mnt/c/Users/jageorge/Projects/SoftwareUpdate_Pymatgen/pymatgen/pymatgen/electronic_structure/cohp.py:641: UserWarning: The bond labels are currently consistent with ICOHPLIST.lobster/ICOOPLIST.lobster, not with COHPCAR.lobster/COOPCAR.lobster. Please be aware!
   &#34;The bond labels are currently consistent with ICOHPLIST.lobster/ICOOPLIST.lobster, not with COHPCAR.lobster/COOPCAR.lobster. Please be aware!&#34;)
-/home/jgeorge/anaconda3/lib/python3.7/site-packages/pymatgen/io/cif.py:37: UserWarning: Please install optional dependency pybtex if youwant to extract references from CIF files.
-  warnings.warn(&#34;Please install optional dependency pybtex if you&#34;
 </pre>
 </div>
 </div>
@@ -13505,7 +13503,7 @@ ICOHP values of certain site
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#read in DOSCAR.lobster</span>
-<span class="n">doscar</span><span class="o">=</span><span class="n">Doscar</span><span class="p">(</span><span class="n">doscar</span><span class="o">=</span><span class="s2">&quot;lobster_data/DOSCAR.lobster&quot;</span><span class="p">,</span><span class="n">vasprun</span><span class="o">=</span><span class="s2">&quot;lobster_data/vasprun.xml&quot;</span><span class="p">)</span>
+<span class="n">doscar</span><span class="o">=</span><span class="n">Doscar</span><span class="p">(</span><span class="n">doscar</span><span class="o">=</span><span class="s2">&quot;lobster_data/DOSCAR.lobster&quot;</span><span class="p">,</span><span class="n">structure_file</span><span class="o">=</span><span class="s2">&quot;lobster_data/POSCAR&quot;</span><span class="p">)</span>
 <span class="n">complete_dos</span><span class="o">=</span><span class="n">doscar</span><span class="o">.</span><span class="n">completedos</span>
 <span class="c1">#get structure object</span>
 <span class="n">structure</span><span class="o">=</span><span class="n">complete_dos</span><span class="o">.</span><span class="n">structure</span>
