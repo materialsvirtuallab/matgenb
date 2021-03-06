@@ -10,9 +10,9 @@
 
 <style type="text/css">
     pre { line-height: 125%; }
-td.linenos pre { color: #000000; background-color: #f0f0f0; padding-left: 5px; padding-right: 5px; }
-span.linenos { color: #000000; background-color: #f0f0f0; padding-left: 5px; padding-right: 5px; }
-td.linenos pre.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
 span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
 .highlight .hll { background-color: var(--jp-cell-editor-active-background) }
 .highlight { background: var(--jp-cell-editor-background); color: var(--jp-mirror-editor-variable-color) }
@@ -14282,7 +14282,7 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[1]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pymatgen</span> <span class="kn">import</span> <span class="n">Molecule</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pymatgen.core</span> <span class="kn">import</span> <span class="n">Molecule</span>
 <span class="c1"># Create a methane molecule.</span>
 <span class="n">coords</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.000000</span><span class="p">,</span> <span class="mf">0.000000</span><span class="p">,</span> <span class="mf">0.000000</span><span class="p">],</span>
           <span class="p">[</span><span class="mf">0.000000</span><span class="p">,</span> <span class="mf">0.000000</span><span class="p">,</span> <span class="mf">1.089000</span><span class="p">],</span>
@@ -14312,7 +14312,7 @@ a.anchor-link {
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
 <pre>Full Formula (H4 C1)
 Reduced Formula: H4C
-Charge = 0, Spin Mult = 1
+Charge = 0.0, Spin Mult = 1
 Sites (5)
 0 C     0.000000     0.000000     0.000000
 1 H     0.000000     0.000000     1.089000
@@ -14355,8 +14355,8 @@ Sites (5)
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>[0.0, 0.0, 0.0] C
-[0.0, 0.0, 1.089] H
+<pre>[0. 0. 0.] C
+[0.    0.    1.089] H
 </pre>
 </div>
 </div>
@@ -14441,7 +14441,7 @@ Sites (1)
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>[(Site: H (0.0000, 0.0000, 1.0890), 1.089), (Site: H (1.0267, 0.0000, -0.3630), 1.0889999563640946), (Site: H (-0.5134, -0.8892, -0.3630), 1.0890004071739368), (Site: H (-0.5134, 0.8892, -0.3630), 1.0890004071739368)]
+<pre>[Site: H (0.0000, 0.0000, 1.0890), Site: H (1.0267, 0.0000, -0.3630), Site: H (-0.5134, -0.8892, -0.3630), Site: H (-0.5134, 0.8892, -0.3630)]
 </pre>
 </div>
 </div>
@@ -14477,7 +14477,7 @@ Sites (1)
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>[Covalent bond between [0.0, 0.0, 0.0] C and [0.0, 0.0, 1.089] H, Covalent bond between [0.0, 0.0, 0.0] C and [1.026719, 0.0, -0.363] H, Covalent bond between [0.0, 0.0, 0.0] C and [-0.51336, -0.889165, -0.363] H, Covalent bond between [0.0, 0.0, 0.0] C and [-0.51336, 0.889165, -0.363] H]
+<pre>[Covalent bond between [0. 0. 0.] C and [0.    0.    1.089] H, Covalent bond between [0. 0. 0.] C and [ 1.026719  0.       -0.363   ] H, Covalent bond between [0. 0. 0.] C and [-0.51336  -0.889165 -0.363   ] H, Covalent bond between [0. 0. 0.] C and [-0.51336   0.889165 -0.363   ] H]
 </pre>
 </div>
 </div>
@@ -14599,12 +14599,18 @@ Sites (5)
     <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Canonical SMILES = C	
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">ModuleNotFoundError</span>                       Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-8-15cbf4a933be&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> <span class="ansi-green-fg">from</span> pymatgen<span class="ansi-blue-fg">.</span>io<span class="ansi-blue-fg">.</span>babel <span class="ansi-green-fg">import</span> BabelMolAdaptor
+<span class="ansi-green-fg">----&gt; 2</span><span class="ansi-red-fg"> </span><span class="ansi-green-fg">import</span> pybel <span class="ansi-green-fg">as</span> pb
+<span class="ansi-green-intense-fg ansi-bold">      3</span> a <span class="ansi-blue-fg">=</span> BabelMolAdaptor<span class="ansi-blue-fg">(</span>mol<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">      4</span> <span class="ansi-red-fg"># Create a pybel.Molecule, which simplifies a lot of access</span>
+<span class="ansi-green-intense-fg ansi-bold">      5</span> pm <span class="ansi-blue-fg">=</span> pb<span class="ansi-blue-fg">.</span>Molecule<span class="ansi-blue-fg">(</span>a<span class="ansi-blue-fg">.</span>openbabel_mol<span class="ansi-blue-fg">)</span>
 
-Inchi= InChI=1S/CH4/h1H4
-
-</pre>
+<span class="ansi-red-fg">ModuleNotFoundError</span>: No module named &#39;pybel&#39;</pre>
 </div>
 </div>
 
@@ -14612,10 +14618,10 @@ Inchi= InChI=1S/CH4/h1H4
 
 </div>
 
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[9]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Generating ethylene carbonate (SMILES obtained from Wikipedia)</span>
@@ -14632,54 +14638,6 @@ Inchi= InChI=1S/CH4/h1H4
 </div>
 </div>
 
-<div class="jp-Cell-outputWrapper">
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-
-<div class="jp-RenderedSVG jp-OutputArea-output " data-mime-type="image/svg+xml">
-<svg height="200px" id="topsvg" version="1.1" viewBox="0 0 100 100" width="200px" x="0" xmlns="http://www.w3.org/2000/svg" xmlns:cml="http://www.xml-cml.org/schema" xmlns:xlink="http://www.w3.org/1999/xlink" y="0">
-<title> - Open Babel Depiction</title>
-<rect fill="white" height="100" width="100" x="0" y="0"/>
-<g transform="translate(0,0)">
-<svg font-family="sans-serif" height="100" stroke="rgb(0,0,0)" stroke-linecap="round" stroke-width="2" viewBox="0 0 221.89 187.549" width="100" x="0" y="0">
-<line opacity="1.0" stroke="rgb(0,0,0)" stroke-width="2.0" x1="79.0" x2="53.3" y1="120.7" y2="129.0"/>
-<line opacity="1.0" stroke="rgb(0,0,0)" stroke-width="2.0" x1="77.1" x2="51.4" y1="115.0" y2="123.3"/>
-<line opacity="1.0" stroke="rgb(0,0,0)" stroke-width="2.0" x1="130.4" x2="155.1" y1="79.8" y2="68.8"/>
-<line opacity="1.0" stroke="rgb(0,0,0)" stroke-width="2.0" x1="130.4" x2="133.2" y1="79.8" y2="52.9"/>
-<line opacity="1.0" stroke="rgb(0,0,0)" stroke-width="2.0" x1="142.8" x2="160.8" y1="117.8" y2="137.9"/>
-<line opacity="1.0" stroke="rgb(0,0,0)" stroke-width="2.0" x1="142.8" x2="169.2" y1="117.8" y2="112.2"/>
-<line opacity="1.0" stroke="rgb(0,0,0)" stroke-width="2.0" x1="99.9" x2="78.0" y1="133.7" y2="117.8"/>
-<line opacity="1.0" stroke="rgb(0,0,0)" stroke-width="2.0" x1="78.0" x2="86.4" y1="117.8" y2="92.1"/>
-<line opacity="1.0" stroke="rgb(0,0,0)" stroke-width="2.0" x1="103.4" x2="130.4" y1="79.8" y2="79.8"/>
-<line opacity="1.0" stroke="rgb(0,0,0)" stroke-width="2.0" x1="130.4" x2="142.8" y1="79.8" y2="117.8"/>
-<line opacity="1.0" stroke="rgb(0,0,0)" stroke-width="2.0" x1="142.8" x2="120.9" y1="117.8" y2="133.7"/>
-<text fill="rgb(255,12,12)" font-size="16" stroke="rgb(255,12,12)" stroke-width="1" x="104.402940" y="149.334547">O</text>
-<text fill="rgb(255,12,12)" font-size="16" stroke="rgb(255,12,12)" stroke-width="1" x="34.000000" y="138.183816">O</text>
-<text fill="rgb(255,12,12)" font-size="16" stroke="rgb(255,12,12)" stroke-width="1" x="84.402940" y="87.780876">O</text>
-<text fill="rgb(191,191,191)" font-size="16" stroke="rgb(191,191,191)" stroke-width="1" x="160.944759" y="71.511410">H</text>
-<text fill="rgb(191,191,191)" font-size="16" stroke="rgb(191,191,191)" stroke-width="1" x="128.584079" y="48.000000">H</text>
-<text fill="rgb(191,191,191)" font-size="16" stroke="rgb(191,191,191)" stroke-width="1" x="163.528844" y="155.548929">H</text>
-<text fill="rgb(191,191,191)" font-size="16" stroke="rgb(191,191,191)" stroke-width="1" x="175.889524" y="117.506669">H</text>
-</svg>
-</g>
-<text fill="black" font-family="sans-serif" font-size="18.000000" x="10.000000" y="20.000000"/>
-</svg>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
@@ -14691,10 +14649,10 @@ Inchi= InChI=1S/CH4/h1H4
 <p>Pymatgen has built-in support for the XYZ and Gaussian, NWchem file formats. It also has support for most other file formats if you have openbabel with Python bindings installed.</p>
 
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[10]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">mol</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;xyz&quot;</span><span class="p">))</span>
@@ -14712,91 +14670,16 @@ Inchi= InChI=1S/CH4/h1H4
 </div>
 </div>
 
-<div class="jp-Cell-outputWrapper">
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>5
-H4 C1
-C 0.000000 0.000000 0.000000
-H 0.000000 0.000000 1.089000
-H 1.026719 0.000000 -0.363000
-H -0.513360 -0.889165 -0.363000
-H -0.513360 0.889165 -0.363000
-#P HF/6-31G(d) 
-
-H4 C1
-
-0 1
-C
-H 1 B1
-H 1 B2 2 A2
-H 1 B3 2 A3 3 D3
-H 1 B4 2 A4 4 D4
-
-B1=1.089000
-B2=1.089000
-A2=109.471221
-B3=1.089000
-A3=109.471213
-D3=120.000017
-B4=1.089000
-A4=109.471213
-D4=119.999966
-
-
-
-
-COMPND    UNNAMED
-AUTHOR    GENERATED BY OPEN BABEL 2.4.1
-HETATM    1  C   UNL     1       0.000   0.000   0.000  1.00  0.00           C  
-HETATM    2  H   UNL     1       0.000   0.000   1.089  1.00  0.00           H  
-HETATM    3  H   UNL     1       1.027   0.000  -0.363  1.00  0.00           H  
-HETATM    4  H   UNL     1      -0.513  -0.889  -0.363  1.00  0.00           H  
-HETATM    5  H   UNL     1      -0.513   0.889  -0.363  1.00  0.00           H  
-CONECT    1    3    4    5    2                                       
-CONECT    2    1                                                      
-CONECT    3    1                                                      
-CONECT    4    1                                                      
-CONECT    5    1                                                      
-MASTER        0    0    0    0    0    0    0    0    5    0    5    0
-END
-
-Full Formula (H4 C1)
-Reduced Formula: H4C
-Charge = 0, Spin Mult = 1
-Sites (5)
-0 C     0.000000     0.000000     0.000000
-1 H     0.000000     0.000000     1.089000
-2 H     1.027000     0.000000    -0.363000
-3 H    -0.513000    -0.889000    -0.363000
-4 H    -0.513000     0.889000    -0.363000
-</pre>
-</div>
-</div>
-
-</div>
-
-</div>
-
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>For more fine-grained control over output, you can use the underlying IO classes Gaussian and Nwchem, two commonly used computational chemistry programs.</p>
 
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[11]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pymatgen.io.gaussian</span> <span class="kn">import</span> <span class="n">GaussianInput</span>
@@ -14812,55 +14695,10 @@ Sites (5)
 </div>
 </div>
 
-<div class="jp-Cell-outputWrapper">
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>%mem=1000MW
-#P B3LYP/6-31G(d) Opt SCF=Tight
-
-methane
-
-0 1
-C
-H 1 B1
-H 1 B2 2 A2
-H 1 B3 2 A3 3 D3
-H 1 B4 2 A4 4 D4
-
-B1=1.089000
-B2=1.089000
-A2=109.471221
-B3=1.089000
-A3=109.471213
-D3=120.000017
-B4=1.089000
-A4=109.471213
-D4=119.999966
-
-
-
-
-</pre>
-</div>
-</div>
-
-</div>
-
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[12]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># A standard relaxation + SCF energy nwchem calculation input file for methane.</span>
@@ -14880,70 +14718,6 @@ D4=119.999966
      </div>
 </div>
 </div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>geometry units angstroms
- C 0.0 0.0 0.0
- H 0.0 0.0 1.089
- H 1.026719 0.0 -0.363
- H -0.51336 -0.889165 -0.363
- H -0.51336 0.889165 -0.363
-end
-
-title &#34;H4C1 dft optimize&#34;
-charge 0
-basis cartesian
- C library &#34;6-31G&#34;
- H library &#34;6-31G&#34;
-end
-dft
- mult 1
- xc b3lyp
-end
-task dft optimize
-
-title &#34;H4C1 dft freq&#34;
-charge 0
-basis cartesian
- C library &#34;6-31G&#34;
- H library &#34;6-31G&#34;
-end
-dft
- mult 1
- xc b3lyp
-end
-task dft freq
-
-title &#34;H4C1 dft energy&#34;
-charge 0
-basis cartesian
- C library &#34;6-311G&#34;
- H library &#34;6-311G&#34;
-end
-dft
- mult 1
- xc b3lyp
-end
-task dft energy
-
-</pre>
-</div>
-</div>
-
-</div>
-
 </div>
 
 </div>

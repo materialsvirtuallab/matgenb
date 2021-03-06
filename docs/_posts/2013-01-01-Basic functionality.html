@@ -10,9 +10,9 @@
 
 <style type="text/css">
     pre { line-height: 125%; }
-td.linenos pre { color: #000000; background-color: #f0f0f0; padding-left: 5px; padding-right: 5px; }
-span.linenos { color: #000000; background-color: #f0f0f0; padding-left: 5px; padding-right: 5px; }
-td.linenos pre.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
 span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
 .highlight .hll { background-color: var(--jp-cell-editor-active-background) }
 .highlight { background: var(--jp-cell-editor-background); color: var(--jp-mirror-editor-variable-color) }
@@ -14278,7 +14278,7 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[1]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pymatgen</span> <span class="k">as</span> <span class="nn">mg</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pymatgen.core</span> <span class="k">as</span> <span class="nn">mg</span>
 </pre></div>
 
      </div>
@@ -14369,7 +14369,7 @@ Ionic radii for Si: {4: 0.54}
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Atomic mass of Si in kg: 4.6637069207919995e-26 kg
+<pre>Atomic mass of Si in kg: 4.66370699549943e-26 kg
 </pre>
 </div>
 </div>
@@ -14390,7 +14390,7 @@ Ionic radii for Si: {4: 0.54}
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fe2</span> <span class="o">=</span> <span class="n">mg</span><span class="o">.</span><span class="n">Specie</span><span class="p">(</span><span class="s2">&quot;Fe&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fe2</span> <span class="o">=</span> <span class="n">mg</span><span class="o">.</span><span class="n">Species</span><span class="p">(</span><span class="s2">&quot;Fe&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">fe2</span><span class="o">.</span><span class="n">atomic_mass</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">fe2</span><span class="o">.</span><span class="n">ionic_radius</span><span class="p">)</span>
 </pre></div>
@@ -14509,7 +14509,21 @@ Weight fraction of Fe is 0.699425505453753
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>((4.2000000000000002, 4.2000000000000002, 4.2000000000000002), (90.0, 90.0, 90.0))
+<pre>((4.2, 4.2, 4.2), (90.0, 90.0, 90.0))
+</pre>
+</div>
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
+<pre>&lt;ipython-input-6-dfa0314955a2&gt;:3: FutureWarning: lengths_and_angles is deprecated
+Use Lattice.parameters instead. This will be removed in v2020.*
+  print(lattice.lengths_and_angles)
 </pre>
 </div>
 </div>
@@ -14553,7 +14567,7 @@ Weight fraction of Fe is 0.699425505453753
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
 <pre>Unit cell vol = 74.08800000000001
-First site of the structure is [ 0.  0.  0.] Cs
+First site of the structure is [0. 0. 0.] Cs
 </pre>
 </div>
 </div>
@@ -14790,7 +14804,7 @@ _cell_angle_gamma   90.00000000
 _symmetry_Int_Tables_number   1
 _chemical_formula_structural   Cs3LiCl4
 _chemical_formula_sum   &#39;Cs3 Li1 Cl4&#39;
-_cell_volume   296.352
+_cell_volume   296.35200000
 _cell_formula_units_Z   1
 loop_
  _symmetry_equiv_pos_site_id
@@ -14804,14 +14818,14 @@ loop_
  _atom_site_fract_y
  _atom_site_fract_z
  _atom_site_occupancy
-  Cs  Cs1  1  0.010000  0.500000  0.000000  1
-  Cs  Cs2  1  0.500000  0.000000  0.000000  1
-  Cs  Cs3  1  0.500000  0.500000  0.000000  1
-  Cl  Cl4  1  0.250000  0.250000  0.500000  1
-  Cl  Cl5  1  0.250000  0.750000  0.500000  1
-  Cl  Cl6  1  0.750000  0.250000  0.500000  1
-  Cl  Cl7  1  0.750000  0.750000  0.500000  1
-  Li  Li8  1  0.000000  0.000000  0.000000  1
+  Cs  Cs0  1  0.01000000  0.50000000  0.00000000  1
+  Cs  Cs1  1  0.50000000  0.00000000  0.00000000  1
+  Cs  Cs2  1  0.50000000  0.50000000  0.00000000  1
+  Cl  Cl3  1  0.25000000  0.25000000  0.50000000  1
+  Cl  Cl4  1  0.25000000  0.75000000  0.50000000  1
+  Cl  Cl5  1  0.75000000  0.25000000  0.50000000  1
+  Cl  Cl6  1  0.75000000  0.75000000  0.50000000  1
+  Li  Li7  1  0.00000000  0.00000000  0.00000000  1
 
 </pre>
 </div>
@@ -14842,7 +14856,7 @@ loop_
 <p>The vaspio_set module provides a means o obtain a complete set of VASP input files for performing calculations. Several useful presets based on the parameters used in the Materials Project are provided.</p>
 
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[13]:</div>
@@ -14856,6 +14870,30 @@ loop_
      </div>
 </div>
 </div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
+<pre>/Users/shyue/repos/pymatgen/pymatgen/io/vasp/inputs.py:1784: UnknownPotcarWarning: POTCAR data with symbol Li_sv does not match any VASP                          POTCAR known to pymatgen. We advise verifying the                          integrity of your POTCAR files.
+  warnings.warn(
+/Users/shyue/repos/pymatgen/pymatgen/io/vasp/sets.py:129: BadInputSetWarning: POTCAR data with symbol Li_sv is not known by pymatgen to                    correspond with the selected potcar_functional PBE. This POTCAR                    is known to correspond with functionals []. Please verify that                    you are using the right POTCARs!
+  warnings.warn(
+</pre>
+</div>
+</div>
+
+</div>
+
 </div>
 
 </div>
