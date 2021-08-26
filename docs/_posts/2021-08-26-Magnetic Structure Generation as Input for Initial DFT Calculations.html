@@ -3,7 +3,7 @@
 <head><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>2013-01-01-Ordering Disordered Structures</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>2021-08-26-Magnetic Structure Generation as Input for Initial DFT Calculations</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 
 
 
@@ -13971,26 +13971,32 @@ a.anchor-link {
 
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h1 id="Introduction">Introduction<a class="anchor-link" href="#Introduction">&#182;</a></h1><p>This notebook demonstrates how to carry out an ordering of a disordered structure using pymatgen.</p>
-<p>Written using:</p>
+<h1 id="Magnetic-Structure-Generation-as-Input-for-Initial-DFT-Calculations">Magnetic Structure Generation as Input for Initial DFT Calculations<a class="anchor-link" href="#Magnetic-Structure-Generation-as-Input-for-Initial-DFT-Calculations">&#182;</a></h1><p><em>Author: Shivam Beniwal</em></p>
+<p>Date: 26 August 2021</p>
+<p>Written with:</p>
 <ul>
-<li>pymatgen==2018.3.13</li>
+<li><em>pymatgen==2022.0.11</em></li>
 </ul>
 
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction">&#182;</a></h2><p>This notebook demonstrates a helpful method from the pymatgen magnetism analyzer module to add magnetic information to a structure as an input to a DFT run where the outcome of the calculation is dependent on the initial magnetic structure, and/or requires some magnetic moment as starting point. This can be extremely useful in case of newly predicted structures.</p>
+
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[1]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[26]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Let us start by creating a disordered CuAu fcc structure.</span>
-
-<span class="kn">from</span> <span class="nn">pymatgen</span> <span class="kn">import</span> <span class="n">Structure</span><span class="p">,</span> <span class="n">Lattice</span>
-
-<span class="n">specie</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Cu0+&quot;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s2">&quot;Au0+&quot;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">}</span>
-<span class="n">cuau</span> <span class="o">=</span> <span class="n">Structure</span><span class="o">.</span><span class="n">from_spacegroup</span><span class="p">(</span><span class="s2">&quot;Fm-3m&quot;</span><span class="p">,</span> <span class="n">Lattice</span><span class="o">.</span><span class="n">cubic</span><span class="p">(</span><span class="mf">3.677</span><span class="p">),</span> <span class="p">[</span><span class="n">specie</span><span class="p">],</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">cuau</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Imports</span>
+<span class="kn">from</span> <span class="nn">pymatgen.ext.matproj</span> <span class="kn">import</span> <span class="n">MPRester</span> <span class="k">as</span> <span class="n">mpr</span>
+<span class="kn">from</span> <span class="nn">pymatgen.core.structure</span> <span class="kn">import</span> <span class="n">Structure</span>
+<span class="kn">from</span> <span class="nn">pymatgen.io.cif</span> <span class="kn">import</span> <span class="n">CifWriter</span>
+<span class="kn">from</span> <span class="nn">pymatgen.analysis.magnetism.analyzer</span> <span class="kn">import</span> <span class="n">CollinearMagneticStructureAnalyzer</span>
+<span class="kn">from</span> <span class="nn">pymatgen.symmetry.analyzer</span> <span class="kn">import</span> <span class="n">SpacegroupAnalyzer</span>
 </pre></div>
 
      </div>
@@ -13998,122 +14004,15 @@ a.anchor-link {
 </div>
 </div>
 
-<div class="jp-Cell-outputWrapper">
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Full Formula (Cu2 Au2)
-Reduced Formula: CuAu
-abc   :   3.677000   3.677000   3.677000
-angles:  90.000000  90.000000  90.000000
-Sites (4)
-  #  SP                        a    b    c
----  ----------------------  ---  ---  ---
-  0  Cu0+:0.500, Au0+:0.500  0    0    0
-  1  Cu0+:0.500, Au0+:0.500  0    0.5  0.5
-  2  Cu0+:0.500, Au0+:0.500  0.5  0    0.5
-  3  Cu0+:0.500, Au0+:0.500  0.5  0.5  0
-</pre>
-</div>
-</div>
-
-</div>
-
-</div>
-
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Note that each site is now 50% occupied by Cu and Au. Because the ordering algorithms uses an Ewald summation to rank the structures, you need to explicitly specify the oxidation state for each species, even if it is 0. Let us now perform ordering of these sites using two methods.</p>
-
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Method-1---Using-the-OrderDisorderedStructureTransformation">Method 1 - Using the OrderDisorderedStructureTransformation<a class="anchor-link" href="#Method-1---Using-the-OrderDisorderedStructureTransformation">&#182;</a></h2><p>The first method is to use the OrderDisorderedStructureTransformation.</p>
-
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pymatgen.transformations.standard_transformations</span> <span class="kn">import</span> <span class="n">OrderDisorderedStructureTransformation</span>
-
-<span class="n">trans</span> <span class="o">=</span> <span class="n">OrderDisorderedStructureTransformation</span><span class="p">()</span>
-
-<span class="n">ss</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">apply_transformation</span><span class="p">(</span><span class="n">cuau</span><span class="p">,</span> <span class="n">return_ranked_list</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ss</span><span class="p">))</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">ss</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>6
-{&#39;energy&#39;: 0.0, &#39;energy_above_minimum&#39;: 0.0, &#39;structure&#39;: Structure Summary
-Lattice
-    abc : 3.677 3.677 3.677
- angles : 90.0 90.0 90.0
- volume : 49.714249733
-      A : 3.677 0.0 0.0
-      B : 0.0 3.677 0.0
-      C : 0.0 0.0 3.677
-PeriodicSite: Cu0+ (1.8385, 0.0000, 1.8385) [0.5000, 0.0000, 0.5000]
-PeriodicSite: Cu0+ (1.8385, 1.8385, 0.0000) [0.5000, 0.5000, 0.0000]
-PeriodicSite: Au0+ (0.0000, 0.0000, 0.0000) [0.0000, 0.0000, 0.0000]
-PeriodicSite: Au0+ (0.0000, 1.8385, 1.8385) [0.0000, 0.5000, 0.5000]}
-</pre>
-</div>
-</div>
-
-</div>
-
-</div>
-
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Note that the OrderDisorderedTransformation (with a sufficiently large return_ranked_list parameter) returns all orderings, including duplicates without accounting for symmetry. A computed ewald energy is returned together with each structure. To eliminate duplicates, the best way is to use StructureMatcher's group_structures method, as demonstrated below.</p>
-
-</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pymatgen.analysis.structure_matcher</span> <span class="kn">import</span> <span class="n">StructureMatcher</span>
-
-<span class="n">matcher</span> <span class="o">=</span> <span class="n">StructureMatcher</span><span class="p">()</span>
-<span class="n">groups</span> <span class="o">=</span> <span class="n">matcher</span><span class="o">.</span><span class="n">group_structures</span><span class="p">([</span><span class="n">d</span><span class="p">[</span><span class="s2">&quot;structure&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">ss</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">groups</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">groups</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Specify location of CIF on your device</span>
+<span class="n">structure</span> <span class="o">=</span> <span class="n">Structure</span><span class="o">.</span><span class="n">from_file</span><span class="p">(</span><span class="s2">&quot;/home/user/Documents/cifs/lfp.cif&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">structure</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14133,18 +14032,108 @@ PeriodicSite: Au0+ (0.0000, 1.8385, 1.8385) [0.0000, 0.5000, 0.5000]}
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>1
-Full Formula (Cu2 Au2)
-Reduced Formula: CuAu
-abc   :   3.677000   3.677000   3.677000
-angles:  90.000000  90.000000  90.000000
-Sites (4)
-  #  SP      a    b    c
----  ----  ---  ---  ---
-  0  Cu0+  0.5  0    0.5
-  1  Cu0+  0.5  0.5  0
-  2  Au0+  0    0    0
-  3  Au0+  0    0.5  0.5
+<pre>Full Formula (Li14 Fe9 P16 O56)
+Reduced Formula: Li14Fe9(P2O7)8
+abc   :  10.747796   9.625861  12.724342
+angles:  68.820392 116.025779 107.299876
+Sites (95)
+  #  SP           a         b         c
+---  ----  --------  --------  --------
+  0  Li+   0.137339  0.92805   0.597441
+  1  Li+   0.126045  0.434026  0.0847
+  2  Li+   0.626176  0.453868  0.590839
+  3  Li+   0.373824  0.546132  0.409161
+  4  Li+   0.021288  0.643996  0.39688
+  5  Li+   0.862661  0.07195   0.402559
+  6  Li+   0.978712  0.356004  0.60312
+  7  Li+   0.497222  0.8674    0.316203
+  8  Li+   0.514158  0.632938  0.173531
+  9  Li+   0.62191   0.955426  0.089457
+ 10  Li+   0.485842  0.367062  0.826469
+ 11  Li+   0.37809   0.044574  0.910543
+ 12  Li+   0.502778  0.1326    0.683797
+ 13  Li+   0.873955  0.565974  0.9153
+ 14  Fe2+  0.744962  0.435377  0.3042
+ 15  Fe2+  0.264262  0.071531  0.201932
+ 16  Fe2+  0.217648  0.200486  0.416895
+ 17  Fe2+  0.735738  0.928469  0.798068
+ 18  Fe2+  0.255038  0.564623  0.6958
+ 19  Fe2+  0.782352  0.799514  0.583105
+ 20  Fe2+  0.780133  0.300909  0.07859
+ 21  Fe2+  0         0         0
+ 22  Fe2+  0.219867  0.699091  0.92141
+ 23  P5+   0.700902  0.638321  0.014979
+ 24  P5+   0.208131  0.231393  0.659702
+ 25  P5+   0.538911  0.196141  0.132759
+ 26  P5+   0.052823  0.968562  0.776985
+ 27  P5+   0.798275  0.263793  0.843927
+ 28  P5+   0.299098  0.361679  0.985021
+ 29  P5+   0.050175  0.469029  0.273158
+ 30  P5+   0.949825  0.530971  0.726842
+ 31  P5+   0.947177  0.031438  0.223015
+ 32  P5+   0.461089  0.803859  0.867241
+ 33  P5+   0.300562  0.864765  0.485466
+ 34  P5+   0.699438  0.135235  0.514534
+ 35  P5+   0.201725  0.736207  0.156073
+ 36  P5+   0.464356  0.308442  0.367888
+ 37  P5+   0.535644  0.691558  0.632112
+ 38  P5+   0.791869  0.768607  0.340298
+ 39  O2-   0.539863  0.158192  0.024743
+ 40  O2-   0.092099  0.652773  0.225938
+ 41  O2-   0.176637  0.901046  0.105233
+ 42  O2-   0.20505   0.21303   0.022179
+ 43  O2-   0.907901  0.347227  0.774062
+ 44  O2-   0.716621  0.007461  0.47944
+ 45  O2-   0.687158  0.754916  0.709086
+ 46  O2-   0.954695  0.45511   0.336803
+ 47  O2-   0.27639   0.492284  0.014508
+ 48  O2-   0.8474    0.341196  0.944993
+ 49  O2-   0.458339  0.562539  0.70479
+ 50  O2-   0.043629  0.050809  0.156863
+ 51  O2-   0.542044  0.165795  0.421783
+ 52  O2-   0.540547  0.662135  0.919652
+ 53  O2-   0.985828  0.405574  0.162943
+ 54  O2-   0.302814  0.399019  0.860061
+ 55  O2-   0.283379  0.992539  0.52056
+ 56  O2-   0.312842  0.245084  0.290914
+ 57  O2-   0.79495   0.78697   0.977821
+ 58  O2-   0.354953  0.203087  0.752629
+ 59  O2-   0.180042  0.392693  0.609766
+ 60  O2-   0.808738  0.58249   0.640002
+ 61  O2-   0.956371  0.949191  0.843137
+ 62  O2-   0.308298  0.743719  0.790965
+ 63  O2-   0.460137  0.841808  0.975257
+ 64  O2-   0.72361   0.507716  0.985492
+ 65  O2-   0.200766  0.718122  0.515678
+ 66  O2-   0.459453  0.337865  0.080348
+ 67  O2-   0.34922   0.712757  0.247493
+ 68  O2-   0.98317   0.904386  0.66758
+ 69  O2-   0.045305  0.54489   0.663197
+ 70  O2-   0.539787  0.65326   0.525967
+ 71  O2-   0.193456  0.914965  0.862184
+ 72  O2-   0.093481  0.150897  0.728314
+ 73  O2-   0.906519  0.849103  0.271686
+ 74  O2-   0.536855  0.934374  0.793678
+ 75  O2-   0.191262  0.41751   0.359998
+ 76  O2-   0.823363  0.098954  0.894767
+ 77  O2-   0.819958  0.607307  0.390234
+ 78  O2-   0.1526    0.658804  0.055007
+ 79  O2-   0.460213  0.34674   0.474033
+ 80  O2-   0.541661  0.437461  0.29521
+ 81  O2-   0.841986  0.849279  0.439014
+ 82  O2-   0.65078   0.287243  0.752507
+ 83  O2-   0.697186  0.600981  0.139939
+ 84  O2-   0.699212  0.094667  0.641348
+ 85  O2-   0.014173  0.594426  0.837057
+ 86  O2-   0.158014  0.150721  0.560986
+ 87  O2-   0.300788  0.905333  0.358652
+ 88  O2-   0.806544  0.085035  0.137816
+ 89  O2-   0.01683   0.095614  0.33242
+ 90  O2-   0.691702  0.256281  0.209035
+ 91  O2-   0.463145  0.065626  0.206322
+ 92  O2-   0.645047  0.796913  0.247371
+ 93  O2-   0.457956  0.834205  0.578217
+ 94  O2-   0.799234  0.281878  0.484322
 </pre>
 </div>
 </div>
@@ -14156,63 +14145,22 @@ Sites (4)
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Method-2---Using-the-EnumerateStructureTransformation">Method 2 - Using the EnumerateStructureTransformation<a class="anchor-link" href="#Method-2---Using-the-EnumerateStructureTransformation">&#182;</a></h2><p>If you have enumlib installed, you can use the EnumerateStructureTransformation. This automatically takes care of symmetrically equivalent orderings and can enumerate supercells, but is much more prone to parameter sensitivity and cannot handle very large structures. The example below shows an enumerate of CuAu up to cell sizes of 4.</p>
+<h2 id="Add-magmoms-to-initial-structure">Add magmoms to initial structure<a class="anchor-link" href="#Add-magmoms-to-initial-structure">&#182;</a></h2><p>Here we define magnetic moments of individual species present in the structure, if not already present. Refer to pymatgen <a href="https://pymatgen.org/pymatgen.analysis.magnetism.analyzer.html">docs</a> for more information on options available for the argument overwrite_magmom_mode. Here we add magmoms for all sites in the structure irrespective of input structure, suitable for a spin-polarized (a.k.a 'magnetic') calculation.</p>
+<p>This is particularly interesting in case of either attempting a ferromagnetic calculation or an antiferromagnetic calculation.</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pymatgen.transformations.advanced_transformations</span> <span class="kn">import</span> <span class="n">EnumerateStructureTransformation</span>
-<span class="n">specie</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Cu&quot;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s2">&quot;Au&quot;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">}</span>
-<span class="n">cuau</span> <span class="o">=</span> <span class="n">Structure</span><span class="o">.</span><span class="n">from_spacegroup</span><span class="p">(</span><span class="s2">&quot;Fm-3m&quot;</span><span class="p">,</span> <span class="n">Lattice</span><span class="o">.</span><span class="n">cubic</span><span class="p">(</span><span class="mf">3.677</span><span class="p">),</span> <span class="p">[</span><span class="n">specie</span><span class="p">],</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
-
-<span class="n">trans</span> <span class="o">=</span> <span class="n">EnumerateStructureTransformation</span><span class="p">(</span><span class="n">max_cell_size</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">ss</span> <span class="o">=</span> <span class="n">trans</span><span class="o">.</span><span class="n">apply_transformation</span><span class="p">(</span><span class="n">cuau</span><span class="p">,</span> <span class="n">return_ranked_list</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ss</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;cell sizes are </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s2">&quot;structure&quot;</span><span class="p">])</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">ss</span><span class="p">]))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">magmom</span> <span class="o">=</span> <span class="n">CollinearMagneticStructureAnalyzer</span><span class="p">(</span><span class="n">structure</span><span class="p">,</span> <span class="n">overwrite_magmom_mode</span><span class="o">=</span><span class="s2">&quot;replace_all_if_undefined&quot;</span><span class="p">)</span>
 </pre></div>
 
      </div>
 </div>
 </div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>94
-cell sizes are [4, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12]
-</pre>
-</div>
-</div>
-
-</div>
-
 </div>
 
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
@@ -14221,9 +14169,7 @@ cell sizes are [4, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 12, 12, 12, 12, 12, 12
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># The following two lines write all the structures to CIF files with names CuAu_0.cif, CuAu_1.cif, ...</span>
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ss</span><span class="p">):</span>
-    <span class="n">d</span><span class="p">[</span><span class="s2">&quot;structure&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s2">&quot;CuAu_</span><span class="si">%d</span><span class="s2">.cif&quot;</span> <span class="o">%</span> <span class="n">i</span><span class="p">)</span>    
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fm_structure</span> <span class="o">=</span> <span class="n">magmom</span><span class="o">.</span><span class="n">get_ferromagnetic_structure</span><span class="p">(</span><span class="n">make_primitive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># Assume an initial ferromagnetic order</span>
 </pre></div>
 
      </div>
@@ -14231,18 +14177,688 @@ cell sizes are [4, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 12, 12, 12, 12, 12, 12
 </div>
 </div>
 
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">fm_structure</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>Full Formula (Li14 Fe9 P16 O56)
+Reduced Formula: Li14Fe9(P2O7)8
+abc   :  10.747796   9.625861  12.724342
+angles:  68.820392 116.025779 107.299876
+Sites (95)
+  #  SP           a         b         c    magmom
+---  ----  --------  --------  --------  --------
+  0  Li+   0.137339  0.92805   0.597441         0
+  1  Li+   0.126045  0.434026  0.0847           0
+  2  Li+   0.626176  0.453868  0.590839         0
+  3  Li+   0.373824  0.546132  0.409161         0
+  4  Li+   0.021288  0.643996  0.39688          0
+  5  Li+   0.862661  0.07195   0.402559         0
+  6  Li+   0.978712  0.356004  0.60312          0
+  7  Li+   0.497222  0.8674    0.316203         0
+  8  Li+   0.514158  0.632938  0.173531         0
+  9  Li+   0.62191   0.955426  0.089457         0
+ 10  Li+   0.485842  0.367062  0.826469         0
+ 11  Li+   0.37809   0.044574  0.910543         0
+ 12  Li+   0.502778  0.1326    0.683797         0
+ 13  Li+   0.873955  0.565974  0.9153           0
+ 14  Fe2+  0.744962  0.435377  0.3042           5
+ 15  Fe2+  0.264262  0.071531  0.201932         5
+ 16  Fe2+  0.217648  0.200486  0.416895         5
+ 17  Fe2+  0.735738  0.928469  0.798068         5
+ 18  Fe2+  0.255038  0.564623  0.6958           5
+ 19  Fe2+  0.782352  0.799514  0.583105         5
+ 20  Fe2+  0.780133  0.300909  0.07859          5
+ 21  Fe2+  0         0         0                5
+ 22  Fe2+  0.219867  0.699091  0.92141          5
+ 23  P5+   0.700902  0.638321  0.014979         0
+ 24  P5+   0.208131  0.231393  0.659702         0
+ 25  P5+   0.538911  0.196141  0.132759         0
+ 26  P5+   0.052823  0.968562  0.776985         0
+ 27  P5+   0.798275  0.263793  0.843927         0
+ 28  P5+   0.299098  0.361679  0.985021         0
+ 29  P5+   0.050175  0.469029  0.273158         0
+ 30  P5+   0.949825  0.530971  0.726842         0
+ 31  P5+   0.947177  0.031438  0.223015         0
+ 32  P5+   0.461089  0.803859  0.867241         0
+ 33  P5+   0.300562  0.864765  0.485466         0
+ 34  P5+   0.699438  0.135235  0.514534         0
+ 35  P5+   0.201725  0.736207  0.156073         0
+ 36  P5+   0.464356  0.308442  0.367888         0
+ 37  P5+   0.535644  0.691558  0.632112         0
+ 38  P5+   0.791869  0.768607  0.340298         0
+ 39  O2-   0.539863  0.158192  0.024743         0
+ 40  O2-   0.092099  0.652773  0.225938         0
+ 41  O2-   0.176637  0.901046  0.105233         0
+ 42  O2-   0.20505   0.21303   0.022179         0
+ 43  O2-   0.907901  0.347227  0.774062         0
+ 44  O2-   0.716621  0.007461  0.47944          0
+ 45  O2-   0.687158  0.754916  0.709086         0
+ 46  O2-   0.954695  0.45511   0.336803         0
+ 47  O2-   0.27639   0.492284  0.014508         0
+ 48  O2-   0.8474    0.341196  0.944993         0
+ 49  O2-   0.458339  0.562539  0.70479          0
+ 50  O2-   0.043629  0.050809  0.156863         0
+ 51  O2-   0.542044  0.165795  0.421783         0
+ 52  O2-   0.540547  0.662135  0.919652         0
+ 53  O2-   0.985828  0.405574  0.162943         0
+ 54  O2-   0.302814  0.399019  0.860061         0
+ 55  O2-   0.283379  0.992539  0.52056          0
+ 56  O2-   0.312842  0.245084  0.290914         0
+ 57  O2-   0.79495   0.78697   0.977821         0
+ 58  O2-   0.354953  0.203087  0.752629         0
+ 59  O2-   0.180042  0.392693  0.609766         0
+ 60  O2-   0.808738  0.58249   0.640002         0
+ 61  O2-   0.956371  0.949191  0.843137         0
+ 62  O2-   0.308298  0.743719  0.790965         0
+ 63  O2-   0.460137  0.841808  0.975257         0
+ 64  O2-   0.72361   0.507716  0.985492         0
+ 65  O2-   0.200766  0.718122  0.515678         0
+ 66  O2-   0.459453  0.337865  0.080348         0
+ 67  O2-   0.34922   0.712757  0.247493         0
+ 68  O2-   0.98317   0.904386  0.66758          0
+ 69  O2-   0.045305  0.54489   0.663197         0
+ 70  O2-   0.539787  0.65326   0.525967         0
+ 71  O2-   0.193456  0.914965  0.862184         0
+ 72  O2-   0.093481  0.150897  0.728314         0
+ 73  O2-   0.906519  0.849103  0.271686         0
+ 74  O2-   0.536855  0.934374  0.793678         0
+ 75  O2-   0.191262  0.41751   0.359998         0
+ 76  O2-   0.823363  0.098954  0.894767         0
+ 77  O2-   0.819958  0.607307  0.390234         0
+ 78  O2-   0.1526    0.658804  0.055007         0
+ 79  O2-   0.460213  0.34674   0.474033         0
+ 80  O2-   0.541661  0.437461  0.29521          0
+ 81  O2-   0.841986  0.849279  0.439014         0
+ 82  O2-   0.65078   0.287243  0.752507         0
+ 83  O2-   0.697186  0.600981  0.139939         0
+ 84  O2-   0.699212  0.094667  0.641348         0
+ 85  O2-   0.014173  0.594426  0.837057         0
+ 86  O2-   0.158014  0.150721  0.560986         0
+ 87  O2-   0.300788  0.905333  0.358652         0
+ 88  O2-   0.806544  0.085035  0.137816         0
+ 89  O2-   0.01683   0.095614  0.33242          0
+ 90  O2-   0.691702  0.256281  0.209035         0
+ 91  O2-   0.463145  0.065626  0.206322         0
+ 92  O2-   0.645047  0.796913  0.247371         0
+ 93  O2-   0.457956  0.834205  0.578217         0
+ 94  O2-   0.799234  0.281878  0.484322         0
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[16]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">order</span> <span class="o">=</span> <span class="n">magmom</span><span class="o">.</span><span class="n">ordering</span> <span class="c1"># Useful if magnetic order is unknown or not user-defined</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">order</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>Ordering.FM
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Note that structures with cell sizes ranging from 1-3x the unit cell size is generated.</p>
+<h2 id="Get-space-group-information">Get space group information<a class="anchor-link" href="#Get-space-group-information">&#182;</a></h2>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[17]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">spa</span> <span class="o">=</span> <span class="n">SpacegroupAnalyzer</span><span class="p">(</span><span class="n">structure</span><span class="p">)</span>
+<span class="n">spa</span><span class="o">.</span><span class="n">get_point_group_symbol</span><span class="p">()</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[17]:</div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
+<pre>&#39;-1&#39;</pre>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[18]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">spa</span><span class="o">.</span><span class="n">get_space_group_symbol</span><span class="p">()</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[18]:</div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
+<pre>&#39;P-1&#39;</pre>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[8]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fm_structure</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s2">&quot;lfp.mcif&quot;</span><span class="p">)</span> <span class="c1"># Save the structure in magCIF format.</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[20]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">spn_structure</span> <span class="o">=</span> <span class="n">magmom</span><span class="o">.</span><span class="n">get_structure_with_spin</span><span class="p">()</span> <span class="c1"># Returns spin decorated values in structure instead of magmom site properties</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">spn_structure</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>Full Formula (Li14 Fe9 P16 O56)
+Reduced Formula: Li14Fe9(P2O7)8
+abc   :  10.747796   9.625861  12.724342
+angles:  68.820392 116.025779 107.299876
+Sites (95)
+  #  SP                  a         b         c
+---  -----------  --------  --------  --------
+  0  Li+,spin=0   0.137339  0.92805   0.597441
+  1  Li+,spin=0   0.126045  0.434026  0.0847
+  2  Li+,spin=0   0.626176  0.453868  0.590839
+  3  Li+,spin=0   0.373824  0.546132  0.409161
+  4  Li+,spin=0   0.021288  0.643996  0.39688
+  5  Li+,spin=0   0.862661  0.07195   0.402559
+  6  Li+,spin=0   0.978712  0.356004  0.60312
+  7  Li+,spin=0   0.497222  0.8674    0.316203
+  8  Li+,spin=0   0.514158  0.632938  0.173531
+  9  Li+,spin=0   0.62191   0.955426  0.089457
+ 10  Li+,spin=0   0.485842  0.367062  0.826469
+ 11  Li+,spin=0   0.37809   0.044574  0.910543
+ 12  Li+,spin=0   0.502778  0.1326    0.683797
+ 13  Li+,spin=0   0.873955  0.565974  0.9153
+ 14  Fe2+,spin=5  0.744962  0.435377  0.3042
+ 15  Fe2+,spin=5  0.264262  0.071531  0.201932
+ 16  Fe2+,spin=5  0.217648  0.200486  0.416895
+ 17  Fe2+,spin=5  0.735738  0.928469  0.798068
+ 18  Fe2+,spin=5  0.255038  0.564623  0.6958
+ 19  Fe2+,spin=5  0.782352  0.799514  0.583105
+ 20  Fe2+,spin=5  0.780133  0.300909  0.07859
+ 21  Fe2+,spin=5  0         0         0
+ 22  Fe2+,spin=5  0.219867  0.699091  0.92141
+ 23  P5+,spin=0   0.700902  0.638321  0.014979
+ 24  P5+,spin=0   0.208131  0.231393  0.659702
+ 25  P5+,spin=0   0.538911  0.196141  0.132759
+ 26  P5+,spin=0   0.052823  0.968562  0.776985
+ 27  P5+,spin=0   0.798275  0.263793  0.843927
+ 28  P5+,spin=0   0.299098  0.361679  0.985021
+ 29  P5+,spin=0   0.050175  0.469029  0.273158
+ 30  P5+,spin=0   0.949825  0.530971  0.726842
+ 31  P5+,spin=0   0.947177  0.031438  0.223015
+ 32  P5+,spin=0   0.461089  0.803859  0.867241
+ 33  P5+,spin=0   0.300562  0.864765  0.485466
+ 34  P5+,spin=0   0.699438  0.135235  0.514534
+ 35  P5+,spin=0   0.201725  0.736207  0.156073
+ 36  P5+,spin=0   0.464356  0.308442  0.367888
+ 37  P5+,spin=0   0.535644  0.691558  0.632112
+ 38  P5+,spin=0   0.791869  0.768607  0.340298
+ 39  O2-,spin=0   0.539863  0.158192  0.024743
+ 40  O2-,spin=0   0.092099  0.652773  0.225938
+ 41  O2-,spin=0   0.176637  0.901046  0.105233
+ 42  O2-,spin=0   0.20505   0.21303   0.022179
+ 43  O2-,spin=0   0.907901  0.347227  0.774062
+ 44  O2-,spin=0   0.716621  0.007461  0.47944
+ 45  O2-,spin=0   0.687158  0.754916  0.709086
+ 46  O2-,spin=0   0.954695  0.45511   0.336803
+ 47  O2-,spin=0   0.27639   0.492284  0.014508
+ 48  O2-,spin=0   0.8474    0.341196  0.944993
+ 49  O2-,spin=0   0.458339  0.562539  0.70479
+ 50  O2-,spin=0   0.043629  0.050809  0.156863
+ 51  O2-,spin=0   0.542044  0.165795  0.421783
+ 52  O2-,spin=0   0.540547  0.662135  0.919652
+ 53  O2-,spin=0   0.985828  0.405574  0.162943
+ 54  O2-,spin=0   0.302814  0.399019  0.860061
+ 55  O2-,spin=0   0.283379  0.992539  0.52056
+ 56  O2-,spin=0   0.312842  0.245084  0.290914
+ 57  O2-,spin=0   0.79495   0.78697   0.977821
+ 58  O2-,spin=0   0.354953  0.203087  0.752629
+ 59  O2-,spin=0   0.180042  0.392693  0.609766
+ 60  O2-,spin=0   0.808738  0.58249   0.640002
+ 61  O2-,spin=0   0.956371  0.949191  0.843137
+ 62  O2-,spin=0   0.308298  0.743719  0.790965
+ 63  O2-,spin=0   0.460137  0.841808  0.975257
+ 64  O2-,spin=0   0.72361   0.507716  0.985492
+ 65  O2-,spin=0   0.200766  0.718122  0.515678
+ 66  O2-,spin=0   0.459453  0.337865  0.080348
+ 67  O2-,spin=0   0.34922   0.712757  0.247493
+ 68  O2-,spin=0   0.98317   0.904386  0.66758
+ 69  O2-,spin=0   0.045305  0.54489   0.663197
+ 70  O2-,spin=0   0.539787  0.65326   0.525967
+ 71  O2-,spin=0   0.193456  0.914965  0.862184
+ 72  O2-,spin=0   0.093481  0.150897  0.728314
+ 73  O2-,spin=0   0.906519  0.849103  0.271686
+ 74  O2-,spin=0   0.536855  0.934374  0.793678
+ 75  O2-,spin=0   0.191262  0.41751   0.359998
+ 76  O2-,spin=0   0.823363  0.098954  0.894767
+ 77  O2-,spin=0   0.819958  0.607307  0.390234
+ 78  O2-,spin=0   0.1526    0.658804  0.055007
+ 79  O2-,spin=0   0.460213  0.34674   0.474033
+ 80  O2-,spin=0   0.541661  0.437461  0.29521
+ 81  O2-,spin=0   0.841986  0.849279  0.439014
+ 82  O2-,spin=0   0.65078   0.287243  0.752507
+ 83  O2-,spin=0   0.697186  0.600981  0.139939
+ 84  O2-,spin=0   0.699212  0.094667  0.641348
+ 85  O2-,spin=0   0.014173  0.594426  0.837057
+ 86  O2-,spin=0   0.158014  0.150721  0.560986
+ 87  O2-,spin=0   0.300788  0.905333  0.358652
+ 88  O2-,spin=0   0.806544  0.085035  0.137816
+ 89  O2-,spin=0   0.01683   0.095614  0.33242
+ 90  O2-,spin=0   0.691702  0.256281  0.209035
+ 91  O2-,spin=0   0.463145  0.065626  0.206322
+ 92  O2-,spin=0   0.645047  0.796913  0.247371
+ 93  O2-,spin=0   0.457956  0.834205  0.578217
+ 94  O2-,spin=0   0.799234  0.281878  0.484322
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>The above structure is saved as a magCIF with .mcif extension. This can be converted back to a CIF with relevant magnetic information associated with each site. OpenBabel does this easily, on command line write-</p>
+
+<pre><code>obabel -imcif lfp.mcif -ocif -O lfp.cif</code></pre>
 
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion">&#182;</a></h2><p>This notebook illustrates two basic ordering/enumeration approaches. In general, OrderDisorderedTransformation works better for large cells and is useful if you need just any quick plausible ordering. EnumerateStructureTransformation is more rigorous, but is prone to sensitivity errors and may require fiddling with various parameters.</p>
+<h2 id="Analyze-magnetic-moment-present-in-a-calculated-structure-using-MAPI">Analyze magnetic moment present in a calculated structure using MAPI<a class="anchor-link" href="#Analyze-magnetic-moment-present-in-a-calculated-structure-using-MAPI">&#182;</a></h2><p>In some cases, it might be useful to analyze magnetic behavior of a strucure from the Materials Project database.</p>
 
 </div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[30]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Establish rester for accessing Materials API </span>
+<span class="n">mpr</span> <span class="o">=</span> <span class="n">MPRester</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s1">&#39;API_KEY&#39;</span><span class="p">)</span>
+<span class="n">mp_id</span> <span class="o">=</span> <span class="s1">&#39;mp-504263&#39;</span> <span class="c1"># Previously reported structure; Co replaced at Fe site</span>
+<span class="n">structure_from_mp</span> <span class="o">=</span> <span class="n">mpr</span><span class="o">.</span><span class="n">get_structure_by_material_id</span><span class="p">(</span><span class="n">mp_id</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">structure</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>Full Formula (Li14 Co9 P16 O56)
+Reduced Formula: Li14Co9(P2O7)8
+abc   :  10.747796   9.625861  12.724342
+angles:  68.820392 116.025779 107.299876
+Sites (95)
+  #  SP           a         b         c    magmom
+---  ----  --------  --------  --------  --------
+  0  Li    0.137339  0.92805   0.597441     0
+  1  Li    0.126045  0.434026  0.0847       0
+  2  Li    0.626176  0.453868  0.590839     0.001
+  3  Li    0.373824  0.546132  0.409161     0.001
+  4  Li    0.021288  0.643996  0.39688      0
+  5  Li    0.862661  0.07195   0.402559     0
+  6  Li    0.978712  0.356004  0.60312      0
+  7  Li    0.497222  0.8674    0.316203    -0
+  8  Li    0.514158  0.632938  0.173531    -0
+  9  Li    0.62191   0.955426  0.089457     0.001
+ 10  Li    0.485842  0.367062  0.826469    -0
+ 11  Li    0.37809   0.044574  0.910543     0.001
+ 12  Li    0.502778  0.1326    0.683797    -0
+ 13  Li    0.873955  0.565974  0.9153       0
+ 14  Co    0.744962  0.435377  0.3042       2.768
+ 15  Co    0.264262  0.071531  0.201932     2.762
+ 16  Co    0.217648  0.200486  0.416895     2.746
+ 17  Co    0.735738  0.928469  0.798068     2.762
+ 18  Co    0.255038  0.564623  0.6958       2.768
+ 19  Co    0.782352  0.799514  0.583105     2.747
+ 20  Co    0.780133  0.300909  0.07859      2.739
+ 21  Co    0         0         0           -0.988
+ 22  Co    0.219867  0.699091  0.92141      2.739
+ 23  P     0.700902  0.638321  0.014979     0.007
+ 24  P     0.208131  0.231393  0.659702     0.004
+ 25  P     0.538911  0.196141  0.132759     0.003
+ 26  P     0.052823  0.968562  0.776985     0.009
+ 27  P     0.798275  0.263793  0.843927     0.004
+ 28  P     0.299098  0.361679  0.985021     0.007
+ 29  P     0.050175  0.469029  0.273158     0.007
+ 30  P     0.949825  0.530971  0.726842     0.009
+ 31  P     0.947177  0.031438  0.223015     0.008
+ 32  P     0.461089  0.803859  0.867241     0.003
+ 33  P     0.300562  0.864765  0.485466     0.008
+ 34  P     0.699438  0.135235  0.514534     0.009
+ 35  P     0.201725  0.736207  0.156073     0.004
+ 36  P     0.464356  0.308442  0.367888     0.004
+ 37  P     0.535644  0.691558  0.632112     0.004
+ 38  P     0.791869  0.768607  0.340298     0.006
+ 39  O     0.539863  0.158192  0.024743     0.024
+ 40  O     0.092099  0.652773  0.225938     0.007
+ 41  O     0.176637  0.901046  0.105233     0.036
+ 42  O     0.20505   0.21303   0.022179     0.018
+ 43  O     0.907901  0.347227  0.774062     0.008
+ 44  O     0.716621  0.007461  0.47944      0.025
+ 45  O     0.687158  0.754916  0.709086     0.053
+ 46  O     0.954695  0.45511   0.336803     0.025
+ 47  O     0.27639   0.492284  0.014508     0.026
+ 48  O     0.8474    0.341196  0.944993     0.032
+ 49  O     0.458339  0.562539  0.70479      0.025
+ 50  O     0.043629  0.050809  0.156863     0.029
+ 51  O     0.542044  0.165795  0.421783     0.003
+ 52  O     0.540547  0.662135  0.919652     0.002
+ 53  O     0.985828  0.405574  0.162943     0.026
+ 54  O     0.302814  0.399019  0.860061     0.026
+ 55  O     0.283379  0.992539  0.52056      0.024
+ 56  O     0.312842  0.245084  0.290914     0.053
+ 57  O     0.79495   0.78697   0.977821     0.018
+ 58  O     0.354953  0.203087  0.752629     0.001
+ 59  O     0.180042  0.392693  0.609766     0.03
+ 60  O     0.808738  0.58249   0.640002     0.037
+ 61  O     0.956371  0.949191  0.843137     0.029
+ 62  O     0.308298  0.743719  0.790965     0.05
+ 63  O     0.460137  0.841808  0.975257     0.024
+ 64  O     0.72361   0.507716  0.985492     0.026
+ 65  O     0.200766  0.718122  0.515678     0.026
+ 66  O     0.459453  0.337865  0.080348     0.002
+ 67  O     0.34922   0.712757  0.247493     0.002
+ 68  O     0.98317   0.904386  0.66758      0.026
+ 69  O     0.045305  0.54489   0.663197     0.023
+ 70  O     0.539787  0.65326   0.525967     0.024
+ 71  O     0.193456  0.914965  0.862184     0.036
+ 72  O     0.093481  0.150897  0.728314     0.008
+ 73  O     0.906519  0.849103  0.271686     0.008
+ 74  O     0.536855  0.934374  0.793678     0.026
+ 75  O     0.191262  0.41751   0.359998     0.037
+ 76  O     0.823363  0.098954  0.894767     0.036
+ 77  O     0.819958  0.607307  0.390234     0.028
+ 78  O     0.1526    0.658804  0.055007     0.032
+ 79  O     0.460213  0.34674   0.474033     0.021
+ 80  O     0.541661  0.437461  0.29521      0.023
+ 81  O     0.841986  0.849279  0.439014     0.03
+ 82  O     0.65078   0.287243  0.752507     0.002
+ 83  O     0.697186  0.600981  0.139939     0.028
+ 84  O     0.699212  0.094667  0.641348     0.027
+ 85  O     0.014173  0.594426  0.837057     0.026
+ 86  O     0.158014  0.150721  0.560986     0.034
+ 87  O     0.300788  0.905333  0.358652     0.027
+ 88  O     0.806544  0.085035  0.137816     0.036
+ 89  O     0.01683   0.095614  0.33242      0.026
+ 90  O     0.691702  0.256281  0.209035     0.05
+ 91  O     0.463145  0.065626  0.206322     0.026
+ 92  O     0.645047  0.796913  0.247371     0.001
+ 93  O     0.457956  0.834205  0.578217     0.003
+ 94  O     0.799234  0.281878  0.484322     0.026
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[31]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mgmmnt</span> <span class="o">=</span> <span class="n">CollinearMagneticStructureAnalyzer</span><span class="p">(</span><span class="n">structure_from_mp</span><span class="p">,</span> <span class="n">overwrite_magmom_mode</span><span class="o">=</span><span class="s2">&quot;replace_all_if_undefined&quot;</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[32]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mgmmnt</span><span class="o">.</span><span class="n">is_magnetic</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[32]:</div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
+<pre>True</pre>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[33]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mgmmnt</span><span class="o">.</span><span class="n">magnetic_species_and_magmoms</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[33]:</div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
+<pre>{&#39;Co&#39;: [0.988, 2.739, 2.746, 2.747, 2.762, 2.768]}</pre>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[34]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mgmmnt</span><span class="o">.</span><span class="n">ordering</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[34]:</div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
+<pre>&lt;Ordering.FiM: &#39;FiM&#39;&gt;</pre>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
 </div>
 </body>
 
