@@ -5,7 +5,7 @@ IBRION = 2
 
 
 ENCUT = 520
-NPAR = 4 
+NPAR = 4
 
 ISIF   = 3
 NSW    = 0

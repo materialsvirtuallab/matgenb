@@ -6,12 +6,12 @@ detecting used PAW program... VASP
 initializing PW system...
 initializing Augmentations...
 recommended basis functions:
-As 4p 4s 
-Ga 3d 4p 4s 
+As 4p 4s
+Ga 3d 4p 4s
 initializing LCAO system...
 setting up local basis functions...
-As (pbeVaspFit2015) 4s 4p_y 4p_z 4p_x 
-Ga (pbeVaspFit2015) 4s 4p_y 4p_z 4p_x 3d_xy 3d_yz 3d_z^2 3d_xz 3d_x^2-y^2 
+As (pbeVaspFit2015) 4s 4p_y 4p_z 4p_x
+Ga (pbeVaspFit2015) 4s 4p_y 4p_z 4p_x 3d_xy 3d_yz 3d_z^2 3d_xz 3d_x^2-y^2
 INFO: There are more PAW bands than local basis functions available.
 INFO: To prevent trouble in orthonormalization and Hamiltonian reconstruction
 INFO: the PAW bands from 14 and upwards will be ignored.
@@ -29,8 +29,8 @@ abs. charge spilling:   0.99%
 
 calculating pDOS... using Gaussian smearing integration (sigma=0.1eV)
 writing DOSCAR.lobster...
-calculating FatBand for Element: ga1 Orbital(s): 3d 4p 4s 
-calculating FatBand for Element: as2 Orbital(s): 4p 4s 
+calculating FatBand for Element: ga1 Orbital(s): 3d 4p 4s
+calculating FatBand for Element: as2 Orbital(s): 4p 4s
 writing COOPCAR.lobster and ICOOPLIST.lobster...
 calculating pCOHPs... using Gaussian smearing integration (sigma=0.1eV)
 writing COHPCAR.lobster and ICOHPLIST.lobster...
