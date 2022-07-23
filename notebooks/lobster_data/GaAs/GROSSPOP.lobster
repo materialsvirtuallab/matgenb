@@ -1,4 +1,4 @@
-Mulliken and Loewdin gross orbital population 
+Mulliken and Loewdin gross orbital population
 
   atom#    atom   basisfunction     Mulliken GP      Loewdin GP
       1      Ga             4s            1.22            1.10
@@ -17,4 +17,3 @@ Mulliken and Loewdin gross orbital population
                           4p_z            1.17            1.19
                           4p_x            1.17            1.19
                          total            5.15            4.94
-

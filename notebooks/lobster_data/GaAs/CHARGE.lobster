@@ -1,4 +1,4 @@
-MULLIKEN and LOEWDIN POPULATION ANALYSIS 
+MULLIKEN and LOEWDIN POPULATION ANALYSIS
 
   atom#    atom      Mulliken charge       Loewdin charge
       1      Ga                 0.15                -0.06

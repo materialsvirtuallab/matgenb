@@ -1,4 +1,4 @@
-MULLIKEN and LOEWDIN POPULATION ANALYSIS 
+MULLIKEN and LOEWDIN POPULATION ANALYSIS
 
   atom#    atom      Mulliken charge       Loewdin charge
       1      Li                 0.87                 0.73
