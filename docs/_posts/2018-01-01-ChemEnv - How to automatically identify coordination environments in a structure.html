@@ -14559,12 +14559,12 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
                 },
                 displayAlign: 'center',
                 CommonHTML: {
-                    linebreaks: { 
-                    automatic: true 
+                    linebreaks: {
+                    automatic: true
                     }
                 }
             });
-        
+
             MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
         }
     }
@@ -14590,7 +14590,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>The tutorial was written by Janine George (Contact: <a href="mailto:janine.george@uclouvain.be">janine.george(at)uclouvain.be</a>, Université catholique de Louvain, <a href="https://jageo.github.io/">https://jageo.github.io/</a>) in collaboration with Geoffroy Hautier (Université catholique de Louvain) and David Waroquiers (Université catholique de Louvain). The tutorial is based on a sample file by David Waroquiers.</p>
+<p>The tutorial was written by Janine George (Contact: <a href="mailto:janine.george@bam.de">janine.george(at)bam.de</a> during her postdoc at Université catholique de Louvain, <a href="https://jageo.github.io/">https://jageo.github.io/</a>) in collaboration with Geoffroy Hautier (Université catholique de Louvain) and David Waroquiers (Université catholique de Louvain). The tutorial is based on a sample file by David Waroquiers.</p>
 
 </div>
 </div>
@@ -14609,7 +14609,9 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <li>Calculation of corresponding continous symmetry measures (CSMs) with model environments for all distance and angular parameters</li>
 <li>Refinement of the results with different strategies that will be explained below (e.g., by using certain distance and angular parameters)</li>
 </ol>
-<p>More information can be found in: <a href="http://pubs.acs.org/doi/10.1021/acs.chemmater.7b02766">D. Waroquiers et al., <em>Chem Mater.</em>, <strong>2017</strong>, <em>29</em>, 8346</a></p>
+<p>More information can be found in our technical paper: <a href="https://doi.org/10.1107/S2052520620007994">D. Waroquiers, J. George, M. Horton, S. Schenk, K. A. Persson, G.-M. Rignanese, X. Gonze, G. Hautier, Acta Cryst B 2020, 76, 683–695.</a></p>
+<p>The first large-scale application can be found here: 
+<a href="http://pubs.acs.org/doi/10.1021/acs.chemmater.7b02766">D. Waroquiers et al., <em>Chem Mater.</em>, <strong>2017</strong>, <em>29</em>, 8346</a></p>
 
 </div>
 </div>
@@ -14688,7 +14690,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Uncomment the subsequent lines in this cell to install dependencies for Google Colab.</span>
-<span class="c1"># !pip install pymatgen==2022.7.19</span>
+<span class="c1"># !pip install pymatgen==2022.7.25</span>
 </pre></div>
 
      </div>
@@ -14696,12 +14698,12 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 </div>
 
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[1]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
@@ -14721,6 +14723,30 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
      </div>
 </div>
 </div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
+<pre>/hpc-user/jgeorge/PycharmProjects/UpdateTutorials/pymatgen/pymatgen/analysis/phase_diagram.py:24: TqdmWarning: IProgress not found. Please update jupyter and ipywidgets. See https://ipywidgets.readthedocs.io/en/stable/user_install.html
+  from tqdm.autonotebook import tqdm
+</pre>
+</div>
+</div>
+
+</div>
+
 </div>
 
 </div>
@@ -14747,12 +14773,12 @@ example here: α-quartz which is depicted below.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Get a structure from the materials project (alpha-quartz)</span>
@@ -14763,6 +14789,30 @@ example here: α-quartz which is depicted below.</p>
      </div>
 </div>
 </div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
+<pre>/hpc-user/jgeorge/PycharmProjects/UpdateTutorials/pymatgen/pymatgen/ext/matproj.py:179: UserWarning: You are using the legacy MPRester, which is deprecated. If you are not a power user, ie., you do not have a lot of legacy code that uses many different MPRester methods, it is recommended you get a new API key from the new Materials Project front end. Once you use get your new API key, using the new API key will automatically route you to using the new MPRester.
+  warnings.warn(
+</pre>
+</div>
+</div>
+
+</div>
+
 </div>
 
 </div>
@@ -14795,7 +14845,7 @@ The graphic is created with VESTA: K. Momma and F. Izumi, "VESTA 3 for three-dim
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[3]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># just remove the comment</span>
@@ -14831,12 +14881,12 @@ The graphic is created with VESTA: K. Momma and F. Izumi, "VESTA 3 for three-dim
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[4]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Setup the local geometry finder</span>
@@ -14852,37 +14902,6 @@ The graphic is created with VESTA: K. Momma and F. Izumi, "VESTA 3 for three-dim
      </div>
 </div>
 </div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>
-If you use the ChemEnv tool for your research, please consider citing the following reference(s) :
-==================================================================================================
-David Waroquiers, Xavier Gonze, Gian-Marco Rignanese, Cathrin Welker-Nieuwoudt, Frank Rosowski,
-Michael Goebel, Stephan Schenk, Peter Degelmann, Rute Andre, Robert Glaum, and Geoffroy Hautier,
-&#34;Statistical analysis of coordination environments in oxides&#34;,
-Chem. Mater., 2017, 29 (19), pp 8346-8360,
-DOI: 10.1021/acs.chemmater.7b02766
-
-</pre>
-</div>
-</div>
-
-</div>
-
 </div>
 
 </div>
@@ -14916,7 +14935,7 @@ DOI: 10.1021/acs.chemmater.7b02766
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>Have a close look at <a href="http://pymatgen.org/_modules/pymatgen/analysis/chemenv/coordination_environments/coordination_geometry_finder.html#LocalGeometryFinder.compute_structure_environments">the documentation of the code</a> for more information on parameters that you can define. For example, we will use the <code>maximum_distance_factor</code> to save some computing time. Multiplied with the distance to the closest neighbor it results in the maximum distance that is considered in the Voronoi approach. Similarily, one can define another parameter - the <code>minimum_angle_factor</code>. This factor is multiplied with the maximum solid angle to the
-neighbors to arrive at the minimum solid angle that is considered in the Voronoi analysis. Don’t choose to drastic values, please. This might lead to unexpected results. One can also refine these parameters later. Moreover, one can also exclude atoms from the computation of the coordination environments (e.g., <code>se=lgf.compute_structure_environments(excluded_atoms=['O'])</code>). Additional parameters such as <code>only_atoms</code>, <code>only_indices</code> and <code>only_cations</code> in combination with <code>valences</code> might be helpful as well.</p>
+neighbors to arrive at the minimum solid angle that is considered in the Voronoi analysis. Don’t choose to drastic values, please. This might lead to unexpected results. One can also refine these parameters later. Moreover, one can also exclude atoms from the computation of the coordination environments (e.g., <code>se=lgf.compute_structure_environments(excluded_atoms=['O'])</code>). Additional parameters such as <code>only_atoms</code>, <code>only_indices</code>, <code>only_cations</code>, <code>additional_condition</code> in combination with <code>valences</code> might be helpful as well. You can find the settings for <code>additional_condition</code> in <code>pymatgen.analysis.chemenv.utils.defs_utils</code></p>
 
 </div>
 </div>
@@ -14926,7 +14945,7 @@ neighbors to arrive at the minimum solid angle that is considered in the Voronoi
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Get the StructureEnvironments</span>
@@ -14954,60 +14973,69 @@ neighbors to arrive at the minimum solid angle that is considered in the Voronoi
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
-<pre>INFO:coordination_geometry_finder:compute_structure_environments:Getting DetailedVoronoiContainer
-INFO:voronoi:__init__:Setting Voronoi list
-INFO:voronoi:setup_voronoi_list:Getting all neighbors in structure
-INFO:voronoi:setup_voronoi_list:Setting up Voronoi list :
-INFO:voronoi:setup_voronoi_list:  - Voronoi analysis for site #0 (1/9)
-INFO:voronoi:setup_voronoi_list:  - Voronoi analysis for site #1 (2/9)
-INFO:voronoi:setup_voronoi_list:  - Voronoi analysis for site #2 (3/9)
-INFO:voronoi:setup_voronoi_list:  - Voronoi analysis for site #3 (4/9)
-INFO:voronoi:setup_voronoi_list:  - Voronoi analysis for site #4 (5/9)
-INFO:voronoi:setup_voronoi_list:  - Voronoi analysis for site #5 (6/9)
-INFO:voronoi:setup_voronoi_list:  - Voronoi analysis for site #6 (7/9)
-INFO:voronoi:setup_voronoi_list:  - Voronoi analysis for site #7 (8/9)
-INFO:voronoi:setup_voronoi_list:  - Voronoi analysis for site #8 (9/9)
-INFO:voronoi:setup_voronoi_list:Voronoi list set up in 0.28 seconds
-INFO:voronoi:__init__:Setting neighbors distances and angles
-INFO:voronoi:__init__:Neighbors distances and angles set up in 0.00 seconds
-INFO:coordination_geometry_finder:compute_structure_environments:DetailedVoronoiContainer has been set up
-INFO:coordination_geometry_finder:compute_structure_environments: ... in site #0/9 (Si)
+<pre>DEBUG:coordination_geometry_finder:compute_structure_environments:Getting DetailedVoronoiContainer
+DEBUG:voronoi:__init__:Setting Voronoi list
+DEBUG:voronoi:setup_voronoi_list:Getting all neighbors in structure
+DEBUG:voronoi:setup_voronoi_list:Setting up Voronoi list :
+DEBUG:voronoi:setup_voronoi_list:  - Voronoi analysis for site #0 (1/9)
+DEBUG:voronoi:setup_voronoi_list:  - Voronoi analysis for site #1 (2/9)
+DEBUG:voronoi:setup_voronoi_list:  - Voronoi analysis for site #2 (3/9)
+DEBUG:voronoi:setup_voronoi_list:  - Voronoi analysis for site #3 (4/9)
+DEBUG:voronoi:setup_voronoi_list:  - Voronoi analysis for site #4 (5/9)
+DEBUG:voronoi:setup_voronoi_list:  - Voronoi analysis for site #5 (6/9)
+DEBUG:voronoi:setup_voronoi_list:  - Voronoi analysis for site #6 (7/9)
+DEBUG:voronoi:setup_voronoi_list:  - Voronoi analysis for site #7 (8/9)
+DEBUG:voronoi:setup_voronoi_list:  - Voronoi analysis for site #8 (9/9)
+DEBUG:voronoi:setup_voronoi_list:Voronoi list set up in 0.27 seconds
+DEBUG:voronoi:__init__:Setting neighbors distances and angles
+DEBUG:voronoi:__init__:Neighbors distances and angles set up in 0.00 seconds
+DEBUG:coordination_geometry_finder:compute_structure_environments:DetailedVoronoiContainer has been set up
+DEBUG:coordination_geometry_finder:compute_structure_environments: ... in site #0/9 (Si)
 DEBUG:coordination_geometry_finder:compute_structure_environments:    ... getting environments for nb_set (4, 0)
+DEBUG:coordination_geometry_finder:update_nb_set_environments:Getting StructureEnvironments with optimized algorithm
 DEBUG:coordination_geometry_finder:compute_structure_environments:    ... getting environments for nb_sets added from hints
-INFO:coordination_geometry_finder:compute_structure_environments:    ... computed in 0.02 seconds
-INFO:coordination_geometry_finder:compute_structure_environments: ... in site #1/9 (Si)
+DEBUG:coordination_geometry_finder:compute_structure_environments:    ... computed in 0.03 seconds
+DEBUG:coordination_geometry_finder:compute_structure_environments: ... in site #1/9 (Si)
 DEBUG:coordination_geometry_finder:compute_structure_environments:    ... getting environments for nb_set (4, 0)
+DEBUG:coordination_geometry_finder:update_nb_set_environments:Getting StructureEnvironments with optimized algorithm
 DEBUG:coordination_geometry_finder:compute_structure_environments:    ... getting environments for nb_sets added from hints
-INFO:coordination_geometry_finder:compute_structure_environments:    ... computed in 0.02 seconds
-INFO:coordination_geometry_finder:compute_structure_environments: ... in site #2/9 (Si)
+DEBUG:coordination_geometry_finder:compute_structure_environments:    ... computed in 0.03 seconds
+DEBUG:coordination_geometry_finder:compute_structure_environments: ... in site #2/9 (Si)
 DEBUG:coordination_geometry_finder:compute_structure_environments:    ... getting environments for nb_set (4, 0)
+DEBUG:coordination_geometry_finder:update_nb_set_environments:Getting StructureEnvironments with optimized algorithm
 DEBUG:coordination_geometry_finder:compute_structure_environments:    ... getting environments for nb_sets added from hints
-INFO:coordination_geometry_finder:compute_structure_environments:    ... computed in 0.02 seconds
-INFO:coordination_geometry_finder:compute_structure_environments: ... in site #3/9 (O)
+DEBUG:coordination_geometry_finder:compute_structure_environments:    ... computed in 0.03 seconds
+DEBUG:coordination_geometry_finder:compute_structure_environments: ... in site #3/9 (O)
 DEBUG:coordination_geometry_finder:compute_structure_environments:    ... getting environments for nb_set (2, 0)
+DEBUG:coordination_geometry_finder:update_nb_set_environments:Getting StructureEnvironments with optimized algorithm
 DEBUG:coordination_geometry_finder:compute_structure_environments:    ... getting environments for nb_sets added from hints
-INFO:coordination_geometry_finder:compute_structure_environments:    ... computed in 0.02 seconds
-INFO:coordination_geometry_finder:compute_structure_environments: ... in site #4/9 (O)
+DEBUG:coordination_geometry_finder:compute_structure_environments:    ... computed in 0.02 seconds
+DEBUG:coordination_geometry_finder:compute_structure_environments: ... in site #4/9 (O)
 DEBUG:coordination_geometry_finder:compute_structure_environments:    ... getting environments for nb_set (2, 0)
+DEBUG:coordination_geometry_finder:update_nb_set_environments:Getting StructureEnvironments with optimized algorithm
 DEBUG:coordination_geometry_finder:compute_structure_environments:    ... getting environments for nb_sets added from hints
-INFO:coordination_geometry_finder:compute_structure_environments:    ... computed in 0.00 seconds
-INFO:coordination_geometry_finder:compute_structure_environments: ... in site #5/9 (O)
+DEBUG:coordination_geometry_finder:compute_structure_environments:    ... computed in 0.02 seconds
+DEBUG:coordination_geometry_finder:compute_structure_environments: ... in site #5/9 (O)
 DEBUG:coordination_geometry_finder:compute_structure_environments:    ... getting environments for nb_set (2, 0)
+DEBUG:coordination_geometry_finder:update_nb_set_environments:Getting StructureEnvironments with optimized algorithm
 DEBUG:coordination_geometry_finder:compute_structure_environments:    ... getting environments for nb_sets added from hints
-INFO:coordination_geometry_finder:compute_structure_environments:    ... computed in 0.05 seconds
-INFO:coordination_geometry_finder:compute_structure_environments: ... in site #6/9 (O)
+DEBUG:coordination_geometry_finder:compute_structure_environments:    ... computed in 0.02 seconds
+DEBUG:coordination_geometry_finder:compute_structure_environments: ... in site #6/9 (O)
 DEBUG:coordination_geometry_finder:compute_structure_environments:    ... getting environments for nb_set (2, 0)
+DEBUG:coordination_geometry_finder:update_nb_set_environments:Getting StructureEnvironments with optimized algorithm
 DEBUG:coordination_geometry_finder:compute_structure_environments:    ... getting environments for nb_sets added from hints
-INFO:coordination_geometry_finder:compute_structure_environments:    ... computed in 0.00 seconds
-INFO:coordination_geometry_finder:compute_structure_environments: ... in site #7/9 (O)
+DEBUG:coordination_geometry_finder:compute_structure_environments:    ... computed in 0.02 seconds
+DEBUG:coordination_geometry_finder:compute_structure_environments: ... in site #7/9 (O)
 DEBUG:coordination_geometry_finder:compute_structure_environments:    ... getting environments for nb_set (2, 0)
+DEBUG:coordination_geometry_finder:update_nb_set_environments:Getting StructureEnvironments with optimized algorithm
 DEBUG:coordination_geometry_finder:compute_structure_environments:    ... getting environments for nb_sets added from hints
-INFO:coordination_geometry_finder:compute_structure_environments:    ... computed in 0.02 seconds
-INFO:coordination_geometry_finder:compute_structure_environments: ... in site #8/9 (O)
+DEBUG:coordination_geometry_finder:compute_structure_environments:    ... computed in 0.02 seconds
+DEBUG:coordination_geometry_finder:compute_structure_environments: ... in site #8/9 (O)
 DEBUG:coordination_geometry_finder:compute_structure_environments:    ... getting environments for nb_set (2, 0)
+DEBUG:coordination_geometry_finder:update_nb_set_environments:Getting StructureEnvironments with optimized algorithm
 DEBUG:coordination_geometry_finder:compute_structure_environments:    ... getting environments for nb_sets added from hints
-INFO:coordination_geometry_finder:compute_structure_environments:    ... computed in 0.02 seconds
-INFO:coordination_geometry_finder:compute_structure_environments:    ... compute_structure_environments ended in 0.52 seconds
+DEBUG:coordination_geometry_finder:compute_structure_environments:    ... computed in 0.02 seconds
+DEBUG:coordination_geometry_finder:compute_structure_environments:    ... compute_structure_environments ended in 0.52 seconds
 </pre>
 </div>
 </div>
@@ -15058,7 +15086,7 @@ The neighbouring atoms that are considered in this approach have a <strong>maxim
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">strategy</span> <span class="o">=</span> <span class="n">SimplestChemenvStrategy</span><span class="p">(</span><span class="n">distance_cutoff</span><span class="o">=</span><span class="mf">1.4</span><span class="p">,</span> <span class="n">angle_cutoff</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
@@ -15089,7 +15117,7 @@ The neighbouring atoms that are considered in this approach have a <strong>maxim
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[8]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># print coordination environments for a special site</span>
@@ -15116,7 +15144,7 @@ The neighbouring atoms that are considered in this approach have a <strong>maxim
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>[{&#39;ce_symbol&#39;: &#39;A:2&#39;, &#39;ce_fraction&#39;: 1.0, &#39;csm&#39;: 2.260276235693848, &#39;permutation&#39;: [0, 1]}]
+<pre>[{&#39;ce_symbol&#39;: &#39;A:2&#39;, &#39;ce_fraction&#39;: 1.0, &#39;csm&#39;: 2.2602753036092986, &#39;permutation&#39;: [0, 1]}]
 </pre>
 </div>
 </div>
@@ -15155,7 +15183,7 @@ The neighbouring atoms that are considered in this approach have a <strong>maxim
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[8]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[9]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Get the strategy from D. Waroquiers et al., Chem Mater., 2017, 29, 8346.</span>
@@ -15192,7 +15220,7 @@ The neighbouring atoms that are considered in this approach have a <strong>maxim
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[9]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[10]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># print coordination environments for a special site</span>
@@ -15219,7 +15247,7 @@ The neighbouring atoms that are considered in this approach have a <strong>maxim
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>[{&#39;ce_symbol&#39;: &#39;A:2&#39;, &#39;ce_fraction&#39;: 0.6735454833571951, &#39;csm&#39;: 2.260276235693848, &#39;permutation&#39;: [0, 1]}, {&#39;ce_symbol&#39;: &#39;L:2&#39;, &#39;ce_fraction&#39;: 0.32645451664280495, &#39;csm&#39;: 2.890279300472483, &#39;permutation&#39;: [0, 1]}]
+<pre>[{&#39;ce_symbol&#39;: &#39;A:2&#39;, &#39;ce_fraction&#39;: 0.6735459864345918, &#39;csm&#39;: 2.2602753036092986, &#39;permutation&#39;: [0, 1]}, {&#39;ce_symbol&#39;: &#39;L:2&#39;, &#39;ce_fraction&#39;: 0.3264540135654081, &#39;csm&#39;: 2.890280351259403, &#39;permutation&#39;: [0, 1]}]
 </pre>
 </div>
 </div>
@@ -15260,7 +15288,7 @@ with 67% angular environment and 33% linear environment. Also, there is a <code>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[10]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[11]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># another site where you have only one coordination environment (tetrahedron, T:4)</span>
@@ -15287,7 +15315,7 @@ with 67% angular environment and 33% linear environment. Also, there is a <code>
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>[{&#39;ce_symbol&#39;: &#39;T:4&#39;, &#39;ce_fraction&#39;: 1.0, &#39;csm&#39;: 0.009888229677272006, &#39;permutation&#39;: [0, 1, 2, 3]}]
+<pre>[{&#39;ce_symbol&#39;: &#39;T:4&#39;, &#39;ce_fraction&#39;: 1.0, &#39;csm&#39;: 0.009888613741192988, &#39;permutation&#39;: [0, 1, 2, 3]}]
 </pre>
 </div>
 </div>
