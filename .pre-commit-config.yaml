@@ -49,3 +49,9 @@ repos:
       - id: nbqa-pyupgrade
         args: [--py39-plus]
       - id: nbqa-isort
+
+  - repo: https://github.com/kynan/nbstripout
+    rev: 0.6.0
+    hooks:
+      - id: nbstripout
+        args: [--drop-empty-cells, --keep-output]
