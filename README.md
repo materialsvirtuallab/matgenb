@@ -54,7 +54,7 @@ anyone is welcome to contribute.
 [View on GitHub]: https://img.shields.io/badge/View%20on-GitHub-darkblue?logo=github
 [Open in Google Colab]: https://colab.research.google.com/assets/colab-badge.svg
 
-# Contributing
+## Contributing
 
 1. Fork this repo and clone.
 
@@ -75,7 +75,7 @@ anyone is welcome to contribute.
    free to add authorship and contact information, as well as works to cite and acknowledge your contributions. In view
    that scientific codes tend to be continuously being updated, please put in a list of the key pinned dependencies so
    that other users can install the exact version of software to run the notebook if needed. The best practice is to put
-   a section that provides a commented out pip install instructure that can be used in Google Colab. For example,
+   a section that provides a commented out `pip install` command that can be used in Google Colab. For example,
 
    ```sh
    # Uncomment the subsequent lines in this cell to install dependencies for Google Colab.
@@ -86,7 +86,7 @@ anyone is welcome to contribute.
    the notebook as needed.
 
 5. Notebooks should be placed in the `notebooks` folder, and the name should start with the date in
-   `YYYY-MM-DD-<intuitive title>` format. See [existing examples](https://github.com/materialsvirtuallab/matgenb/tree/master/notebooks).
+   `YYYY-MM-DD-<intuitive title>` format. See [existing examples](https://github.com/materialsvirtuallab/matgenb/tree/master/notebooks). Remember to add it to the [above table](#running-the-examples-from-a-browser) too.
 
 6. In the root folder of the repo, convert the jupyter notebooks to html.
 
