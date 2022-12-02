@@ -12,7 +12,7 @@ __date__ = "Sep 1, 2014"
 
 
 @task
-def update_html(ctx, year: str = None):
+def update_html(ctx, year: str = ""):
     year = year or f"{datetime.now():%Y}"
     ctx.run(f"rm docs/_posts/{year}-*.html")
     ctx.run(
