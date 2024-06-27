@@ -3,7 +3,7 @@
 <html lang="en">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>2013-01-01-Molecule</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>2016-09-08-Data-driven First Principles Methods for the Study and Design of Alkali Superionic Conductors Part 1 - Structure Generation</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <style type="text/css">
     pre { line-height: 125%; }
 td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
@@ -7516,18 +7516,13 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction">¶</a></h2>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>This notebook demonstrates pymatgen's functionality in terms of creating and editing molecules, as well as its integration with OpenBabel. For the latter, please note that you will need to have openbabel with python bindings installed. Please refer to pymatgen's documentation for installation details.</p>
+<h1 id="Introduction">Introduction<a class="anchor-link" href="#Introduction">¶</a></h1><p>This notebook demonstrates how to perform structure enumeration using Python Materials Genomics (pymatgen). These notebooks are described in detail in</p>
+<pre><code>Deng, Z.; Zhu, Z.; Chu, I.-H.; Ong, S. P. Data-Driven First-Principles Methods for the Study and Design of 
+Alkali Superionic Conductors. Chem. Mater. 2017, 29 (1), 281–288 DOI: 10.1021/acs.chemmater.6b02648.
+
+</code></pre>
+<p>If you find these notebooks useful and use the functionality demonstrated, please consider citing the above work.</p>
+<p>Let's start by importing some modules and classes that we will be using.</p>
 </div>
 </div>
 </div>
@@ -7546,6 +7541,25 @@ a.anchor-link {
 </div>
 </div>
 </div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pymatgen.core</span> <span class="kn">import</span> <span class="n">Structure</span>
+<span class="kn">from</span> <span class="nn">pymatgen.io.vasp.sets</span> <span class="kn">import</span> <span class="n">MPRelaxSet</span><span class="p">,</span> <span class="n">batch_write_input</span>
+<span class="kn">from</span> <span class="nn">pymatgen.symmetry.analyzer</span> <span class="kn">import</span> <span class="n">SpacegroupAnalyzer</span>
+<span class="kn">from</span> <span class="nn">pymatgen.transformations.advanced_transformations</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">EnumerateStructureTransformation</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper" tabindex="0">
@@ -7553,7 +7567,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Molecules">Molecules<a class="anchor-link" href="#Molecules">¶</a></h2>
+<h1 id="Preparation">Preparation<a class="anchor-link" href="#Preparation">¶</a></h1><p>We will first read in the structure from crystallographic information file (CIF) found in ICSD.</p>
 </div>
 </div>
 </div>
@@ -7565,182 +7579,7 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pymatgen.core</span> <span class="kn">import</span> <span class="n">Molecule</span>
-
-<span class="c1"># Create a methane molecule.</span>
-<span class="n">coords</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">[</span><span class="mf">0.000000</span><span class="p">,</span> <span class="mf">0.000000</span><span class="p">,</span> <span class="mf">0.000000</span><span class="p">],</span>
-    <span class="p">[</span><span class="mf">0.000000</span><span class="p">,</span> <span class="mf">0.000000</span><span class="p">,</span> <span class="mf">1.089000</span><span class="p">],</span>
-    <span class="p">[</span><span class="mf">1.026719</span><span class="p">,</span> <span class="mf">0.000000</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.363000</span><span class="p">],</span>
-    <span class="p">[</span><span class="o">-</span><span class="mf">0.513360</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.889165</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.363000</span><span class="p">],</span>
-    <span class="p">[</span><span class="o">-</span><span class="mf">0.513360</span><span class="p">,</span> <span class="mf">0.889165</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.363000</span><span class="p">],</span>
-<span class="p">]</span>
-<span class="n">mol</span> <span class="o">=</span> <span class="n">Molecule</span><span class="p">([</span><span class="s2">"C"</span><span class="p">,</span> <span class="s2">"H"</span><span class="p">,</span> <span class="s2">"H"</span><span class="p">,</span> <span class="s2">"H"</span><span class="p">,</span> <span class="s2">"H"</span><span class="p">],</span> <span class="n">coords</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Full Formula (H4 C1)
-Reduced Formula: H4C
-Charge = 0.0, Spin Mult = 1
-Sites (5)
-0 C     0.000000     0.000000     0.000000
-1 H     0.000000     0.000000     1.089000
-2 H     1.026719     0.000000    -0.363000
-3 H    -0.513360    -0.889165    -0.363000
-4 H    -0.513360     0.889165    -0.363000
-</pre>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># A Molecule is simply a list of Sites.</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">mol</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">mol</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>[0. 0. 0.] C
-[0.    0.    1.089] H
-</pre>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Break a Molecule into two by breaking a bond.</span>
-<span class="k">for</span> <span class="n">frag</span> <span class="ow">in</span> <span class="n">mol</span><span class="o">.</span><span class="n">break_bond</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">frag</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Full Formula (H3 C1)
-Reduced Formula: H3C
-Charge = 0, Spin Mult = 2
-Sites (4)
-0 C     0.000000     0.000000     0.000000
-1 H     1.026719     0.000000    -0.363000
-2 H    -0.513360    -0.889165    -0.363000
-3 H    -0.513360     0.889165    -0.363000
-Full Formula (H1)
-Reduced Formula: H2
-Charge = 0, Spin Mult = 2
-Sites (1)
-0 H     0.000000     0.000000     1.089000
-</pre>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Getting neighbors that are within 3 angstroms from C atom.</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">mol</span><span class="o">.</span><span class="n">get_neighbors</span><span class="p">(</span><span class="n">mol</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">3</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>[Site: H (0.0000, 0.0000, 1.0890), Site: H (1.0267, 0.0000, -0.3630), Site: H (-0.5134, -0.8892, -0.3630), Site: H (-0.5134, 0.8892, -0.3630)]
-</pre>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Detecting bonds</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">mol</span><span class="o">.</span><span class="n">get_covalent_bonds</span><span class="p">())</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>[Covalent bond between [0. 0. 0.] C and [0.    0.    1.089] H, Covalent bond between [0. 0. 0.] C and [ 1.026719  0.       -0.363   ] H, Covalent bond between [0. 0. 0.] C and [-0.51336  -0.889165 -0.363   ] H, Covalent bond between [0. 0. 0.] C and [-0.51336   0.889165 -0.363   ] H]
-</pre>
-</div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># If you need to run the molecule in a box with a periodic boundary condition</span>
-<span class="c1"># code, you can generate the boxed structure as follows (in a 10Ax10Ax10A box)</span>
-<span class="n">structure</span> <span class="o">=</span> <span class="n">mol</span><span class="o">.</span><span class="n">get_boxed_structure</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">structure</span> <span class="o">=</span> <span class="n">Structure</span><span class="o">.</span><span class="n">from_file</span><span class="p">(</span><span class="s2">"aimd_data/EntryWithCollCode418490.cif"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">structure</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -7754,41 +7593,94 @@ Sites (1)
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Full Formula (H4 C1)
-Reduced Formula: H4C
-abc   :  10.000000  10.000000  10.000000
+<pre>Full Formula (Li26.88 P4 S20 Cl4)
+Reduced Formula: Li26.88P4S20Cl4
+abc   :   9.859000   9.859000   9.859000
 angles:  90.000000  90.000000  90.000000
-Sites (5)
-  #  SP           a         b       c
----  ----  --------  --------  ------
-  0  H     0.5       0.5       0.6089
-  1  H     0.602672  0.5       0.4637
-  2  H     0.448664  0.411083  0.4637
-  3  H     0.448664  0.588917  0.4637
-  4  C     0.5       0.5       0.5
+Sites (76)
+  #  SP               a        b        c
+---  ---------  -------  -------  -------
+  0  Li+:0.560  0.3148   0.982    0.3148
+  1  Li+:0.560  0.982    0.6852   0.6852
+  2  Li+:0.560  0.6852   0.3148   0.018
+  3  Li+:0.560  0.3148   0.6852   0.018
+  4  Li+:0.560  0.982    0.3148   0.3148
+  5  Li+:0.560  0.6852   0.982    0.6852
+  6  Li+:0.560  0.3148   0.018    0.6852
+  7  Li+:0.560  0.6852   0.6852   0.982
+  8  Li+:0.560  0.3148   0.3148   0.982
+  9  Li+:0.560  0.6852   0.018    0.3148
+ 10  Li+:0.560  0.018    0.6852   0.3148
+ 11  Li+:0.560  0.018    0.3148   0.6852
+ 12  Li+:0.560  0.3148   0.482    0.8148
+ 13  Li+:0.560  0.982    0.1852   0.1852
+ 14  Li+:0.560  0.6852   0.8148   0.518
+ 15  Li+:0.560  0.3148   0.1852   0.518
+ 16  Li+:0.560  0.982    0.8148   0.8148
+ 17  Li+:0.560  0.6852   0.482    0.1852
+ 18  Li+:0.560  0.3148   0.518    0.1852
+ 19  Li+:0.560  0.6852   0.1852   0.482
+ 20  Li+:0.560  0.3148   0.8148   0.482
+ 21  Li+:0.560  0.6852   0.518    0.8148
+ 22  Li+:0.560  0.018    0.1852   0.8148
+ 23  Li+:0.560  0.018    0.8148   0.1852
+ 24  Li+:0.560  0.8148   0.982    0.8148
+ 25  Li+:0.560  0.482    0.6852   0.1852
+ 26  Li+:0.560  0.1852   0.3148   0.518
+ 27  Li+:0.560  0.8148   0.6852   0.518
+ 28  Li+:0.560  0.482    0.3148   0.8148
+ 29  Li+:0.560  0.1852   0.982    0.1852
+ 30  Li+:0.560  0.8148   0.018    0.1852
+ 31  Li+:0.560  0.1852   0.6852   0.482
+ 32  Li+:0.560  0.8148   0.3148   0.482
+ 33  Li+:0.560  0.1852   0.018    0.8148
+ 34  Li+:0.560  0.518    0.6852   0.8148
+ 35  Li+:0.560  0.518    0.3148   0.1852
+ 36  Li+:0.560  0.8148   0.482    0.3148
+ 37  Li+:0.560  0.482    0.1852   0.6852
+ 38  Li+:0.560  0.1852   0.8148   0.018
+ 39  Li+:0.560  0.8148   0.1852   0.018
+ 40  Li+:0.560  0.482    0.8148   0.3148
+ 41  Li+:0.560  0.1852   0.482    0.6852
+ 42  Li+:0.560  0.8148   0.518    0.6852
+ 43  Li+:0.560  0.1852   0.1852   0.982
+ 44  Li+:0.560  0.8148   0.8148   0.982
+ 45  Li+:0.560  0.1852   0.518    0.3148
+ 46  Li+:0.560  0.518    0.1852   0.3148
+ 47  Li+:0.560  0.518    0.8148   0.6852
+ 48  P5+        0.5      0        0
+ 49  P5+        0        0        0.5
+ 50  P5+        0        0.5      0
+ 51  P5+        0.5      0.5      0.5
+ 52  S2-        0.25     0.75     0.25
+ 53  S2-        0.75     0.75     0.75
+ 54  S2-        0.75     0.25     0.25
+ 55  S2-        0.25     0.25     0.75
+ 56  S2-        0.38053  0.11947  0.11947
+ 57  S2-        0.11947  0.88053  0.61947
+ 58  S2-        0.88053  0.38053  0.88053
+ 59  S2-        0.38053  0.88053  0.88053
+ 60  S2-        0.11947  0.38053  0.11947
+ 61  S2-        0.88053  0.11947  0.61947
+ 62  S2-        0.11947  0.11947  0.38053
+ 63  S2-        0.88053  0.61947  0.11947
+ 64  S2-        0.11947  0.61947  0.88053
+ 65  S2-        0.88053  0.88053  0.38053
+ 66  S2-        0.61947  0.11947  0.88053
+ 67  S2-        0.61947  0.88053  0.11947
+ 68  S2-        0.38053  0.61947  0.61947
+ 69  S2-        0.38053  0.38053  0.38053
+ 70  S2-        0.61947  0.61947  0.38053
+ 71  S2-        0.61947  0.38053  0.61947
+ 72  Cl-        0        0        0
+ 73  Cl-        0        0.5      0.5
+ 74  Cl-        0.5      0        0.5
+ 75  Cl-        0.5      0.5      0
 </pre>
 </div>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Writing to XYZ files (easy to open with many molecule file viewers)</span>
-<span class="kn">from</span> <span class="nn">pymatgen.io.xyz</span> <span class="kn">import</span> <span class="n">XYZ</span>
-
-<span class="n">xyz</span> <span class="o">=</span> <span class="n">XYZ</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
-<span class="n">xyz</span><span class="o">.</span><span class="n">write_file</span><span class="p">(</span><span class="s2">"methane.xyz"</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
 </div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper" tabindex="0">
@@ -7796,18 +7688,7 @@ Sites (5)
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Openbabel-interface">Openbabel interface<a class="anchor-link" href="#Openbabel-interface">¶</a></h2>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>This section demonstrates pymatgen's integration with openbabel.</p>
+<p>From the above, we see that the reported experimental structure has Li disorder. The occupancy of Li is higher than what would be expected for a Li6PS5Cl nominal composition. We will first adjust the composition by setting the Li occupancies to 0.5 to obtain stoichiometric charge-balanced Li6PS5Cl.</p>
 </div>
 </div>
 </div>
@@ -7819,19 +7700,14 @@ Sites (5)
 <div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pybel</span> <span class="k">as</span> <span class="nn">pb</span>
-<span class="kn">from</span> <span class="nn">pymatgen.io.babel</span> <span class="kn">import</span> <span class="n">BabelMolAdaptor</span>
-
-<span class="n">a</span> <span class="o">=</span> <span class="n">BabelMolAdaptor</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
-<span class="c1"># Create a pybel.Molecule, which simplifies a lot of access</span>
-<span class="n">pm</span> <span class="o">=</span> <span class="n">pb</span><span class="o">.</span><span class="n">Molecule</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">openbabel_mol</span><span class="p">)</span>
-<span class="c1"># Print canonical SMILES representation (unique and comparable).</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"Canonical SMILES = </span><span class="si">{}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pm</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"can"</span><span class="p">)))</span>
-<span class="c1"># Print Inchi representation</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"Inchi= </span><span class="si">{}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pm</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"inchi"</span><span class="p">)))</span>
-<span class="c1"># pb.outformats provides a listing of available formats.</span>
-<span class="c1"># Let's do a write to the commonly used PDB file.</span>
-<span class="n">pm</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"pdb"</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s2">"methane.pdb"</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># loop over all sites in the structure</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">site</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">structure</span><span class="p">):</span>
+    <span class="c1"># change the occupancy of Li+ disordered sites to 0.5</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">site</span><span class="o">.</span><span class="n">is_ordered</span><span class="p">:</span>
+        <span class="n">structure</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"Li+"</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">}</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="s2">"The composition after adjustments is </span><span class="si">%s</span><span class="s2">."</span> <span class="o">%</span> <span class="n">structure</span><span class="o">.</span><span class="n">composition</span><span class="o">.</span><span class="n">reduced_formula</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -7843,23 +7719,25 @@ Sites (5)
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr" tabindex="0">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">ModuleNotFoundError</span>                       Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-8-15cbf4a933be&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-intense-fg ansi-bold">      1</span> <span class="ansi-green-fg">from</span> pymatgen<span class="ansi-blue-fg">.</span>io<span class="ansi-blue-fg">.</span>babel <span class="ansi-green-fg">import</span> BabelMolAdaptor
-<span class="ansi-green-fg">----&gt; 2</span><span class="ansi-red-fg"> </span><span class="ansi-green-fg">import</span> pybel <span class="ansi-green-fg">as</span> pb
-<span class="ansi-green-intense-fg ansi-bold">      3</span> a <span class="ansi-blue-fg">=</span> BabelMolAdaptor<span class="ansi-blue-fg">(</span>mol<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      4</span> <span class="ansi-red-fg"># Create a pybel.Molecule, which simplifies a lot of access</span>
-<span class="ansi-green-intense-fg ansi-bold">      5</span> pm <span class="ansi-blue-fg">=</span> pb<span class="ansi-blue-fg">.</span>Molecule<span class="ansi-blue-fg">(</span>a<span class="ansi-blue-fg">.</span>openbabel_mol<span class="ansi-blue-fg">)</span>
-
-<span class="ansi-red-fg">ModuleNotFoundError</span>: No module named 'pybel'</pre>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>The composition after adjustments is Li6PS5Cl.
+</pre>
 </div>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>To keep the number of orderings manageable, we will perform enumeration only on the primitive cell. The primitive cell can be obtained using the <em>SpacegroupAnalyzer</em>.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7867,19 +7745,52 @@ Sites (5)
 <div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Generating ethylene carbonate (SMILES obtained from Wikipedia)</span>
-<span class="c1"># And displaying the svg.</span>
-<span class="n">ec</span> <span class="o">=</span> <span class="n">pb</span><span class="o">.</span><span class="n">readstring</span><span class="p">(</span><span class="s2">"smi"</span><span class="p">,</span> <span class="s2">"C1COC(=O)O1"</span><span class="p">)</span>
-<span class="n">ec</span><span class="o">.</span><span class="n">make3D</span><span class="p">()</span>
-<span class="kn">from</span> <span class="nn">IPython.core.display</span> <span class="kn">import</span> <span class="n">SVG</span><span class="p">,</span> <span class="n">display_svg</span>
-
-<span class="n">svg</span> <span class="o">=</span> <span class="n">SVG</span><span class="p">(</span><span class="n">ec</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">"svg"</span><span class="p">))</span>
-<span class="n">display_svg</span><span class="p">(</span><span class="n">svg</span><span class="p">)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">analyzer</span> <span class="o">=</span> <span class="n">SpacegroupAnalyzer</span><span class="p">(</span><span class="n">structure</span><span class="p">)</span>
+<span class="n">prim_cell</span> <span class="o">=</span> <span class="n">analyzer</span><span class="o">.</span><span class="n">find_primitive</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">prim_cell</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>Full Formula (Li6 P1 S5 Cl1)
+Reduced Formula: Li6PS5Cl
+abc   :   6.971366   6.971366   6.971366
+angles:  60.000000  60.000000  60.000000
+Sites (19)
+  #  SP               a        b        c
+---  ---------  -------  -------  -------
+  0  Li+:0.500  0.3616   0.768    0.768
+  1  Li+:0.500  0.1024   0.768    0.3616
+  2  Li+:0.500  0.768    0.768    0.1024
+  3  Li+:0.500  0.768    0.768    0.3616
+  4  Li+:0.500  0.3616   0.768    0.1024
+  5  Li+:0.500  0.1024   0.768    0.768
+  6  Li+:0.500  0.768    0.1024   0.3616
+  7  Li+:0.500  0.1024   0.3616   0.768
+  8  Li+:0.500  0.3616   0.1024   0.768
+  9  Li+:0.500  0.768    0.3616   0.1024
+ 10  Li+:0.500  0.768    0.3616   0.768
+ 11  Li+:0.500  0.768    0.1024   0.768
+ 12  P5+        0.25     0.25     0.25
+ 13  S2-        0        0        0
+ 14  S2-        0.36947  0.36947  0.89159
+ 15  S2-        0.36947  0.36947  0.36947
+ 16  S2-        0.89159  0.36947  0.36947
+ 17  S2-        0.36947  0.89159  0.36947
+ 18  Cl-        0.75     0.75     0.75
+</pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper" tabindex="0">
@@ -7887,22 +7798,11 @@ Sites (5)
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Input/Output">Input/Output<a class="anchor-link" href="#Input/Output">¶</a></h2>
+<h1 id="Enumerate-structures-using-enumlib">Enumerate structures using enumlib<a class="anchor-link" href="#Enumerate-structures-using-enumlib">¶</a></h1><p>We will use the <em>EnumerateStructureTransformation</em> class to enumerate all symmetrically distinct structures. <em>EnumerateStructureTransformation</em> is a user-friendly wrapper around enumlib, a fortran library to generate derivative structures written by Hart et al.</p>
 </div>
 </div>
 </div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Pymatgen has built-in support for the XYZ and Gaussian, NWchem file formats. It also has support for most other file formats if you have openbabel with Python bindings installed.</p>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7910,19 +7810,30 @@ Sites (5)
 <div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">mol</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">fmt</span><span class="o">=</span><span class="s2">"xyz"</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">mol</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">fmt</span><span class="o">=</span><span class="s2">"g09"</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">mol</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">fmt</span><span class="o">=</span><span class="s2">"pdb"</span><span class="p">))</span>  <span class="c1"># Needs Openbabel.</span>
-
-<span class="n">mol</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s2">"methane.xyz"</span><span class="p">)</span>
-<span class="n">mol</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s2">"methane.pdb"</span><span class="p">)</span>  <span class="c1"># Needs Openbabel.</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">Molecule</span><span class="o">.</span><span class="n">from_file</span><span class="p">(</span><span class="s2">"methane.pdb"</span><span class="p">))</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">enum</span> <span class="o">=</span> <span class="n">EnumerateStructureTransformation</span><span class="p">()</span>
+<span class="n">enumerated</span> <span class="o">=</span> <span class="n">enum</span><span class="o">.</span><span class="n">apply_transformation</span><span class="p">(</span>
+    <span class="n">prim_cell</span><span class="p">,</span> <span class="mi">100</span>
+<span class="p">)</span>  <span class="c1"># return no more than 100 structures</span>
+<span class="n">structures</span> <span class="o">=</span> <span class="p">[</span><span class="n">d</span><span class="p">[</span><span class="s2">"structure"</span><span class="p">]</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">enumerated</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="si">%d</span><span class="s2"> structures returned."</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">structures</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>48 structures returned.
+</pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper" tabindex="0">
@@ -7930,7 +7841,7 @@ Sites (5)
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>For more fine-grained control over output, you can use the underlying IO classes Gaussian and Nwchem, two commonly used computational chemistry programs.</p>
+<h1 id="VASP-input-generation">VASP input generation<a class="anchor-link" href="#VASP-input-generation">¶</a></h1><p>Pymatgen has useful classes for batch generating VASP input files that use parameters that are compatible with those used in the Materials Project. These parameters have been well-tested over a large database of structures in different chemistries. Using the same parameters also allow the energies computed to be compared with those in the Materials Project database for phase stability and other analyses.</p>
 </div>
 </div>
 </div>
@@ -7942,55 +7853,11 @@ Sites (5)
 <div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pymatgen.io.gaussian</span> <span class="kn">import</span> <span class="n">GaussianInput</span>
-
-<span class="n">gau</span> <span class="o">=</span> <span class="n">GaussianInput</span><span class="p">(</span>
-    <span class="n">mol</span><span class="p">,</span>
-    <span class="n">charge</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-    <span class="n">spin_multiplicity</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-    <span class="n">title</span><span class="o">=</span><span class="s2">"methane"</span><span class="p">,</span>
-    <span class="n">functional</span><span class="o">=</span><span class="s2">"B3LYP"</span><span class="p">,</span>
-    <span class="n">basis_set</span><span class="o">=</span><span class="s2">"6-31G(d)"</span><span class="p">,</span>
-    <span class="n">route_parameters</span><span class="o">=</span><span class="p">{</span><span class="s2">"Opt"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span> <span class="s2">"SCF"</span><span class="p">:</span> <span class="s2">"Tight"</span><span class="p">},</span>
-    <span class="n">link0_parameters</span><span class="o">=</span><span class="p">{</span><span class="s2">"%mem"</span><span class="p">:</span> <span class="s2">"1000MW"</span><span class="p">},</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">batch_write_input</span><span class="p">(</span>
+    <span class="n">structures</span><span class="p">,</span> <span class="n">vasp_input_set</span><span class="o">=</span><span class="n">MPRelaxSet</span><span class="p">,</span> <span class="n">output_dir</span><span class="o">=</span><span class="s2">"Li6PS5Cl_orderings"</span>
 <span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">gau</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># A standard relaxation + SCF energy nwchem calculation input file for methane.</span>
-<span class="kn">from</span> <span class="nn">pymatgen.io.nwchem</span> <span class="kn">import</span> <span class="n">NwInput</span><span class="p">,</span> <span class="n">NwTask</span>
-
-<span class="n">tasks</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="n">NwTask</span><span class="o">.</span><span class="n">dft_task</span><span class="p">(</span><span class="n">mol</span><span class="p">,</span> <span class="n">operation</span><span class="o">=</span><span class="s2">"optimize"</span><span class="p">,</span> <span class="n">xc</span><span class="o">=</span><span class="s2">"b3lyp"</span><span class="p">,</span> <span class="n">basis_set</span><span class="o">=</span><span class="s2">"6-31G"</span><span class="p">),</span>
-    <span class="n">NwTask</span><span class="o">.</span><span class="n">dft_task</span><span class="p">(</span><span class="n">mol</span><span class="p">,</span> <span class="n">operation</span><span class="o">=</span><span class="s2">"freq"</span><span class="p">,</span> <span class="n">xc</span><span class="o">=</span><span class="s2">"b3lyp"</span><span class="p">,</span> <span class="n">basis_set</span><span class="o">=</span><span class="s2">"6-31G"</span><span class="p">),</span>
-    <span class="n">NwTask</span><span class="o">.</span><span class="n">dft_task</span><span class="p">(</span><span class="n">mol</span><span class="p">,</span> <span class="n">operation</span><span class="o">=</span><span class="s2">"energy"</span><span class="p">,</span> <span class="n">xc</span><span class="o">=</span><span class="s2">"b3lyp"</span><span class="p">,</span> <span class="n">basis_set</span><span class="o">=</span><span class="s2">"6-311G"</span><span class="p">),</span>
-<span class="p">]</span>
-<span class="n">nwi</span> <span class="o">=</span> <span class="n">NwInput</span><span class="p">(</span><span class="n">mol</span><span class="p">,</span> <span class="n">tasks</span><span class="p">,</span> <span class="n">geometry_options</span><span class="o">=</span><span class="p">[</span><span class="s2">"units"</span><span class="p">,</span> <span class="s2">"angstroms"</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">nwi</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="This-concludes-the-demo-on-pymatgen's-basic-capabilities-for-molecules.">This concludes the demo on pymatgen's basic capabilities for molecules.<a class="anchor-link" href="#This-concludes-the-demo-on-pymatgen's-basic-capabilities-for-molecules.">¶</a></h2>
 </div>
 </div>
 </div>
