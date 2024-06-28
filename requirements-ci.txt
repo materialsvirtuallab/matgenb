@@ -6,3 +6,4 @@ pymatgen
 pymatgen-analysis-diffusion
 mp-api
 # BoltzTraP2
+phonopy
