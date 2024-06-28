@@ -1,0 +1,8 @@
+# Unlike typical requirements.txt files, the dependencies here should not be pinned to enable testing against the
+# latest versions of each code.
+pytest
+nbmake
+pymatgen
+pymatgen-analysis-diffusion
+mp-api
+# BoltzTraP2
