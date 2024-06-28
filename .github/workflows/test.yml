@@ -47,7 +47,7 @@ jobs:
       - name: Install dependencies
         run: |
           micromamba activate venv
-
+          uv pip install numpy cython
           uv pip install --upgrade -r requirements-ci.txt
 
       - name: pytest
