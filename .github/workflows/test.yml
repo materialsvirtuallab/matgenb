@@ -27,6 +27,7 @@ jobs:
 
     env:
       PMG_MAPI_KEY: ${{ secrets.PMG_MAPI_KEY }}
+      PMG_VASP_PSP_DIR: /home/runner/matgenb/matgenb/notebooks/psp
 
     steps:
       - name: Check out repo
