@@ -39,6 +39,11 @@ jobs:
         run: |
           micromamba create -n venv python=${{ matrix.python-version }} --yes
 
+      - name: Install ubuntu-only conda dependencies
+        if: matrix.config.os == 'ubuntu-latest'
+        run: |
+          micromamba install -n venv -c conda-forge enumlib packmol bader openbabel openff-toolkit --yes
+
       - name: Install uv
         run: micromamba run -n venv pip install uv
 
