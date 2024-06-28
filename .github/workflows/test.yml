@@ -27,7 +27,7 @@ jobs:
 
     env:
       PMG_MAPI_KEY: ${{ secrets.PMG_MAPI_KEY }}
-      PMG_VASP_PSP_DIR: /home/runner/matgenb/matgenb/notebooks/psp
+      PMG_VASP_PSP_DIR: /home/runner/matgenb/notebooks/psp
 
     steps:
       - name: Check out repo
@@ -54,4 +54,5 @@ jobs:
         run: |
           micromamba activate venv
           cd notebooks
+          pwd
           pytest --nbmake .
