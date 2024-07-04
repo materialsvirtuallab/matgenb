@@ -55,4 +55,4 @@ jobs:
           micromamba activate venv
           cd notebooks
           pwd
-          pytest --ignore=*notest.ipynb --nbmake .
+          pytest --ignore-glob=*notest.ipynb --nbmake .
