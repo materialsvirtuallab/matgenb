@@ -24,7 +24,7 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     env:
-      PMG_MAPI_KEY: ${{ secrets.PMG_MAPI_KEY }}
+      MP_API_KEY: ${{ secrets.PMG_MAPI_KEY }}
       PMG_VASP_PSP_DIR: "${{ github.workspace }}/psp"
       MPLBACKEND: Agg  # non-interactive backend for matplotlib
 
@@ -52,8 +52,10 @@ jobs:
         with:
           version: "latest"
 
-      - name: Install dependencies and run pytest
+      - name: Install dependencies
         run: |
-          micromamba activate matgenb
-          uv pip install --upgrade -r requirements-ci.txt
-          pytest --nbmake notebooks/
+          micromamba run -n matgenb uv pip install --upgrade -r requirements-ci.txt
+
+      - name: Run pytest
+        run: |
+          micromamba run -n matgenb pytest --ignore-glob=*notest.ipynb --nbmake notebooks/
