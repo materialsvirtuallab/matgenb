@@ -56,4 +56,4 @@ jobs:
         run: |
           micromamba activate matgenb
           uv pip install --upgrade -r requirements-ci.txt
-          pytest --ignore-glob=*notest.ipynb --nbmake notebooks/
+          pytest --nbmake notebooks/
