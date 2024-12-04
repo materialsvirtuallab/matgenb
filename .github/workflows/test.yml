@@ -24,7 +24,7 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     env:
-      MP_API_KEY: ${{ secrets.PMG_MAPI_KEY }}
+      PMG_MAPI_KEY: ${{ secrets.PMG_MAPI_KEY }}
       PMG_VASP_PSP_DIR: "${{ github.workspace }}/psp"
       MPLBACKEND: Agg  # non-interactive backend for matplotlib
 
