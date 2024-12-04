@@ -14,7 +14,7 @@ jobs:
   test:
     defaults:
       run:
-        shell: bash -l {0}  # enables conda/mamba env activation by reading bash profile
+        shell: bash -l {0} # enables conda/mamba env activation by reading bash profile
     strategy:
       fail-fast: false
       matrix:
@@ -33,24 +33,26 @@ jobs:
 
       - name: Set up micromamba
         uses: mamba-org/setup-micromamba@main
-
-      - name: Create mamba environment
-        run: |
-          micromamba create -n venv python=${{ matrix.python-version }} --yes
-          micromamba install -n venv -c conda-forge enumlib packmol bader openbabel openff-toolkit --yes
+        with:
+          environment-name: matgenb
+          condarc: |
+            channels:
+              - conda-forge
+          create-args: >-
+            python=${{ matrix.python-version }}
+            enumlib
+            packmol
+            bader
+            openbabel
+            openff-toolkit
 
       - name: Install uv
         uses: astral-sh/setup-uv@v4
         with:
           version: "latest"
 
-      - name: Install dependencies
+      - name: Install dependencies and run pytest
         run: |
-          micromamba activate venv
+          micromamba activate matgenb
           uv pip install --upgrade -r requirements-ci.txt
-
-      - name: pytest
-        run: |
-          micromamba activate venv
-          cd notebooks
-          pytest --ignore-glob=*notest.ipynb --nbmake .
+          pytest --ignore-glob=*notest.ipynb --nbmake notebooks/
