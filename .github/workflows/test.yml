@@ -1,5 +1,4 @@
-# Runs the complete test suite incl. many external command line dependencies (like Openbabel)
-# as well as the pymatgen.ext package. Coverage used to be computed based on this workflow.
+# Runs the complete test suite incl. many external dependencies (like Openbabel)
 name: Tests
 
 on:
@@ -15,11 +14,10 @@ jobs:
   test:
     defaults:
       run:
-        shell: bash -l {0} # enables conda/mamba env activation by reading bash profile
+        shell: bash -l {0}  # enables conda/mamba env activation by reading bash profile
     strategy:
       fail-fast: false
       matrix:
-        # pytest-split automatically distributes work load so parallel jobs finish in similar time
         os: [ubuntu-latest]
         python-version: ["3.11"]
 
@@ -27,7 +25,7 @@ jobs:
 
     env:
       PMG_MAPI_KEY: ${{ secrets.PMG_MAPI_KEY }}
-      PMG_VASP_PSP_DIR: /home/runner/work/matgenb/matgenb/psp
+      PMG_VASP_PSP_DIR: "${{ github.workspace }}/psp"
 
     steps:
       - name: Check out repo
@@ -42,7 +40,9 @@ jobs:
           micromamba install -n venv -c conda-forge enumlib packmol bader openbabel openff-toolkit --yes
 
       - name: Install uv
-        run: micromamba run -n venv pip install uv
+        uses: astral-sh/setup-uv@v4
+        with:
+          version: "latest"
 
       - name: Install dependencies
         run: |
@@ -54,5 +54,4 @@ jobs:
         run: |
           micromamba activate venv
           cd notebooks
-          pwd
           pytest --ignore-glob=*notest.ipynb --nbmake .
