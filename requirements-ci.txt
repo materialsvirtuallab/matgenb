@@ -5,5 +5,5 @@ nbmake
 pymatgen
 pymatgen-analysis-diffusion
 mp-api
-# BoltzTraP2  # Does not work because numpy not detected.
+BoltzTraP2
 phonopy

@@ -80,7 +80,7 @@ anyone is welcome to contribute.
 
    ```sh
    # Uncomment the subsequent lines in this cell to install dependencies for Google Colab.
-   # !pip install pymatgen==2022.2.27
+   # !pip install -U pymatgen
    ```
 
 4. Ideally, please update notebooks as needed to use more modern versions of the codes, and you may update the date of
