@@ -5,7 +5,7 @@ ci:
 
 repos:
   - repo: https://github.com/psf/black-pre-commit-mirror
-    rev: 25.11.0
+    rev: 26.5.1
     hooks:
       - id: black-jupyter
 
@@ -29,12 +29,12 @@ repos:
         args: [--py39-plus]
 
   - repo: https://github.com/PyCQA/autoflake
-    rev: v2.3.1
+    rev: v2.3.3
     hooks:
       - id: autoflake
 
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.19.0
+    rev: v2.1.0
     hooks:
       - id: mypy
 
@@ -46,7 +46,7 @@ repos:
       - id: nbqa-isort
 
   - repo: https://github.com/kynan/nbstripout
-    rev: 0.8.2
+    rev: 0.9.1
     hooks:
       - id: nbstripout
         args: [--drop-empty-cells, --keep-output]
